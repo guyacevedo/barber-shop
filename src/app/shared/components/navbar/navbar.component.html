@@ -1,0 +1,118 @@
+<nav class="flex items-center xs:justify-between
+   justify-start xl:pl-10 size-full bg-bs-primary text-white">
+  <!-- Hamburger Menu (Mobile) -->
+  <div class="xl:hidden pl-4">
+    <button (click)="toggleMenu()" tabindex="0" class="cursor-pointer z-50 mr-2 relative rounded-xl
+        hover:bg-bs-third/60 shadow active:bg-bs-third/30
+        transition-colors duration-300 p-2 outline outline-bs-third" aria-label="Abrir menú"
+      [attr.aria-expanded]="isMenuOpen()" aria-controls="mobile-menu-panel">
+      @if (!isMenuOpen()) {
+      <app-svg-icon icon="menu" size="34px"></app-svg-icon>
+      } @else {
+      <app-svg-icon icon="close" size="34px"></app-svg-icon>
+      }
+    </button>
+  </div>
+
+  <!-- Mobile Menu Panel -->
+  <nav id="mobile-menu-panel" [class]="{
+      'translate-x-0': isMenuOpen(),
+      '-translate-x-full': !isMenuOpen(),
+      'transition-transform duration-300 ease-in-out': isAnimating()
+    }" class="hidden not-xl:fixed xs:top-22 top-18 left-0 w-full h-dvh max-w-xs bg-bs-primary
+     text-white z-20 transform not-xl:flex flex-col justify-between overflow-auto">
+    <ul class="flex flex-col items-start space-y-2 px-8 pt-4">
+      @for (item of navItems; track item.title) {
+      <li class="w-full">
+        <a (click)="toggleMenu()" class="flex w-full items-center justify-start p-4 text-md text-left font-medium rounded-lg
+           hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition-colors duration-300"
+          [routerLink]="item.href" [attr.tabindex]="isMenuOpen() ? 0 : -1" [attr.aria-label]="item.ariaLabel">
+          {{ item.title }}
+        </a>
+      </li>
+      }
+
+      <li class="w-full">
+        <hr class="border-t border-lightblue-third w-full my-2" />
+      </li>
+      <li class="w-full">
+        <a (click)="toggleMenu()" routerLink="/info/help" [attr.tabindex]="isMenuOpen() ? 0 : -1" class="flex w-full items-center justify-start gap-1.5 p-2 text-md text-left font-medium
+           rounded-lg hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition-colors duration-300">
+          <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
+          <span class="text-lg text-white">Ayuda</span>
+        </a>
+      </li>
+      <li class="w-full">
+        <hr class="border-t border-lightblue-third w-full mt-2" />
+      </li>
+
+      <li class="w-full">
+        <div class="flex justify-center gap-1 w-full mt-4 mb-4">
+          <a [href]="facebook" [attr.tabindex]="isMenuOpen() ? 0 : -1"
+            class="text-lightblue-secondary/90 hover:text-white transition" rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Página de Facebook</span>
+          </a>
+          <a [href]="instagram" [attr.tabindex]="isMenuOpen() ? 0 : -1"
+            class="text-lightblue-secondary/90 hover:text-white ms-5 transition" rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Cuenta de Instagram</span>
+          </a>
+          <a [href]="twitter" [attr.tabindex]="isMenuOpen() ? 0 : -1"
+            class="text-lightblue-secondary/90 hover:text-white ms-5 transition" rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Cuenta de X</span>
+          </a>
+          <a [href]="tiktok" [attr.tabindex]="isMenuOpen() ? 0 : -1"
+            class="text-lightblue-secondary/90 hover:text-white ms-5 transition" rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Cuenta de TikTok</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <div class=" mb-32 ml-8 flex flex-col justify-center items-start gap-2">
+      <span class="text-sm text-bs-secondary/90 text-pretty">
+        © 2025 Barber Shop™
+      </span>
+      <a [href]="github" [attr.tabindex]="isMenuOpen() ? 0 : -1"
+        class="text-sm text-bs-secondary/90 text-pretty hover:underline cursor-pointer"
+        rel="noopener noreferrer nofollow">
+        Hecho por Guy Acevedo.
+      </a>
+    </div>
+  </nav>
+
+  <!-- Overlay -->
+  <div (click)="toggleMenu()" [class]="{ block: isMenuOpen(), hidden: !isMenuOpen() }"
+    class="xl:hidden fixed xs:top-22 top-18 inset-x-0 bottom-0 bg-black/70 z-10"></div>
+
+  <!-- Logo -->
+  <a routerLink="/home" class="flex items-center xl:justify-start 2xl:ml-28 px-2 mr-2 rounded-xl"
+    aria-label="Ir a la página de inicio de Barber Shop">
+    <h1 class="text-3xl font-semibold text-white hidden xl:block object-contain xl:w-72 lg:w-48 w-32">Barber Shop</h1>
+    <h1 class="text-3xl font-semibold text-white block xl:hidden object-contain lg:w-72 w-56">Barber Shop</h1>
+  </a>
+
+
+  <!-- Desktop Navigation -->
+  <ul class="hidden xl:flex justify-center items-center h-full mr-4 ml-2">
+    @for (item of navItems; track item.title) {
+    <li>
+      <a class="flex items-center justify-center p-2 text-md text-center font-medium
+         rounded-lg hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition-colors duration-300"
+        [routerLink]="item.href" tabindex="0" [attr.aria-label]="item.ariaLabel">
+        {{ item.title }}
+      </a>
+    </li>
+    }
+    <li>
+      <a routerLink="/info/help" class="flex flex-col justify-center items-center rounded-xl py-3 px-5
+         gap-0.5 hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition duration-300">
+        <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
+        <span class="text-sm text-white">Ayuda</span>
+      </a>
+    </li>
+  </ul>
+</nav>
