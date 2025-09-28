@@ -1,0 +1,55 @@
+<!-- Slider main container -->
+<div class="swiper group" #swiperContainer>
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    @for (slide of slides; track slide.title; let i = $index) {
+    <div class="swiper-slide">
+      <div class="relative">
+        <picture>
+          <source media="(max-width: 767px)" [srcset]="slide.image.mobile">
+          <img [src]="slide.image.desktop" [alt]="slide.title" width="1920" height="690" class="w-full h-full block"
+            [attr.fetchpriority]="i === 0 ? 'high' : null" [attr.loading]="i === 0 ? null : 'lazy'" decoding="async" />
+        </picture>
+        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+
+        <!-- Gradient overlay for desktop -->
+        <div class="hidden md:block absolute inset-0 bg-gradient-to-r
+             from-[rgba(1,21,58,0.8)] to-[rgba(4,74,203,0.37)]"></div>
+
+        <!-- Detail -->
+        <div class="px-6 lg:py-6 bg-bs-primary text-white min-h-96 sm:min-h-74
+              md:absolute md:inset-0 md:z-10 md:bg-transparent md:p-0 md:min-h-0
+              lg:mx-38 md:mx-24 md:px-4 flex flex-col select-none
+              justify-center">
+          <!-- Title -->
+          <h2 class="text-4xl lg:text-5xl font-bold mb-4 md:text-start text-center
+                  tracking-tight md:drop-shadow-md text-pretty">
+            {{ slide.title }}
+          </h2>
+          <!-- Description -->
+          <p class="text-xl lg:text-2xl lg:mb-6 md:mb-1 mb-6 lg:max-w-xl max-w-2xl md:mx-0 mx-auto
+                text-pretty md:text-start text-center md:drop-shadow-md">
+            {{ slide.description }}
+          </p>
+          <!-- Link Button -->
+          <a [routerLink]="slide.buttonLink" class="flex px-8 py-4 w-fit rounded-sm md:mx-0 mx-auto
+              text-center text-white text-xl font-semibold md:bg-bs-primary md:hover:bg-bs-third 
+              bg-bs-third hover:bg-lightblue-third transition duration-300">
+            {{ slide.buttonText }}
+          </a>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Swiper Navigation -->
+  <button class="swiper-button-prev invisible md:group-hover:visible" aria-label="slide prev">
+  </button>
+  <button class="swiper-button-next invisible md:group-hover:visible" aria-label="slide next">
+  </button>
+
+  <!-- Swiper Pagination -->
+  <div class="swiper-pagination md:block hidden"></div>
+</div>

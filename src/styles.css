@@ -1,23 +1,27 @@
 /* Framework CSS */
 @import "tailwindcss";
+@import 'swiper/css/bundle';
 
 /* Custom Tailwind Utilities */
 @theme {
   /* Colors */
-  --color-bs-primary: #4974bf;
-  --color-bs-secondary: #d7e7ff;
-  --color-bs-third: #204da0;
+  --color-bs-primary: #0e6ad7;
+  --color-bs-secondary: #cbf1f7;
+  --color-bs-third: #12326c;
   --color-lightblue-primary: #f5f9ff;
   --color-lightblue-secondary: #deebff;
   --color-lightblue-third: #6292fa;
-  
+
   /* Spacing */
   --spacing-home-page: 75rem;
+  --spacing-main-carousel: 36rem;
+  --spacing-step-size: 3.5rem;
 
   /* Breakpoints */
-
+  --breakpoint-xxs: 414px;
   --breakpoint-xs: 480px;
   --breakpoint-3xl: 1624px;
+  --breakpoint-4xl: 1690px;
 
 }
 
@@ -36,6 +40,7 @@ body {
     opacity: 0.1;
     transform: translateY(80px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -63,8 +68,8 @@ body {
   border-radius: 9999px;
 }
 
- /* Custom Text Selection */
- ::selection {
+/* Custom Text Selection */
+::selection {
   background-color: var(--color-bs-third);
   color: var(--color-lightblue-primary);
 }

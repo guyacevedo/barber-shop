@@ -5,6 +5,20 @@ export const routes: Routes = [
     // Main (/home)
     {
         path: '',
-        component: MainLayoutComponent
+        component: MainLayoutComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full',
+            },
+            {
+                path: 'home',
+                loadChildren: () =>
+                    import('./features/landing/landing.routes').then(
+                        (m) => m.LANDING_ROUTES
+                    ),
+            },
+        ],
     },
 ];
