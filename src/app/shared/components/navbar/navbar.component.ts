@@ -23,6 +23,11 @@ export class NavbarComponent {
   public isAnimating = signal(false);
 
    navItems = [
+     {
+      title: 'Inicio',
+      ariaLabel: 'Abrir Sección principal',
+      href: '/home',
+    },
     {
       title: 'Quiénes Somos',
       ariaLabel: 'Abrir Sección sobre quiénes somos',
