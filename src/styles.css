@@ -78,3 +78,19 @@ body {
   background-color: var(--color-bs-third);
   color: var(--color-lightblue-primary);
 }
+
+/* Image Fade-In Animation */
+.img-fade-container {
+  background-color: var(--color-va-primary);
+  overflow: hidden;
+  position: relative;
+}
+
+.img-fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.img-fade-in.is-loaded {
+  opacity: 1;
+}
