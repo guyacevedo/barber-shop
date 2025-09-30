@@ -1,7 +1,7 @@
 <nav class="flex items-center xs:justify-between
-   justify-start xl:pl-10 size-full bg-bs-primary text-white">
+   justify-start lg:pl-10 size-full bg-bs-primary text-white">
   <!-- Hamburger Menu (Mobile) -->
-  <div class="xl:hidden pl-4">
+  <div class="lg:hidden pl-4">
     <button (click)="toggleMenu()" tabindex="0" class="cursor-pointer z-50 mr-2 relative rounded-xl
         hover:bg-bs-third/60 shadow active:bg-bs-third/30
         transition-colors duration-300 p-2 outline outline-bs-third" aria-label="Abrir menú"
@@ -19,8 +19,8 @@
       'translate-x-0': isMenuOpen(),
       '-translate-x-full': !isMenuOpen(),
       'transition-transform duration-300 ease-in-out': isAnimating()
-    }" class="hidden not-xl:fixed xs:top-22 top-18 left-0 w-full h-dvh max-w-xs bg-bs-primary
-     text-white z-20 transform not-xl:flex flex-col justify-between overflow-auto">
+    }" class="hidden not-lg:fixed xs:top-22 top-18 left-0 w-full h-dvh max-w-xs bg-bs-primary
+     text-white z-20 transform not-lg:flex flex-col justify-between overflow-auto">
     <ul class="flex flex-col items-start space-y-2 px-8 pt-4">
       @for (item of navItems; track item.title) {
       <li class="w-full">
@@ -86,21 +86,21 @@
 
   <!-- Overlay -->
   <div (click)="toggleMenu()" [class]="{ block: isMenuOpen(), hidden: !isMenuOpen() }"
-    class="xl:hidden fixed xs:top-22 top-18 inset-x-0 bottom-0 bg-black/70 z-10"></div>
+    class="lg:hidden fixed xs:top-22 top-18 inset-x-0 bottom-0 bg-black/70 z-10"></div>
 
   <!-- Logo -->
-  <a routerLink="/home" class="flex items-center xl:justify-start 2xl:ml-28 px-2 mr-2 rounded-xl"
+  <a routerLink="/home" class="flex items-center lg:justify-start 2xl:ml-28 px-2 mr-2 rounded-xl"
     aria-label="Ir a la página de inicio de Barber Shop">
-    <h1 class="text-3xl font-semibold text-white hidden xl:block object-contain xl:w-72 lg:w-48 w-32">Barber Shop</h1>
-    <h1 class="text-3xl font-semibold text-white block xl:hidden object-contain lg:w-72 w-56">Barber Shop</h1>
+    <h1 class="text-3xl font-semibold text-white hidden lg:block object-contain xl:w-72 lg:w-48 w-32">Barber Shop</h1>
+    <h1 class="text-3xl font-semibold text-white block lg:hidden object-contain lg:w-72 w-56">Barber Shop</h1>
   </a>
 
 
   <!-- Desktop Navigation -->
-  <ul class="hidden xl:flex justify-center items-center h-full mr-4 ml-2">
+  <ul class="hidden lg:flex justify-center items-center h-full mr-4 ml-2">
     @for (item of navItems; track item.title) {
     <li>
-      <a class="flex items-center justify-center p-2 text-md text-center font-medium
+      <a class="flex items-center justify-center p-2 mr-4 text-md text-center font-medium
          rounded-lg hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition-colors duration-300"
         [routerLink]="item.href" tabindex="0" [attr.aria-label]="item.ariaLabel">
         {{ item.title }}

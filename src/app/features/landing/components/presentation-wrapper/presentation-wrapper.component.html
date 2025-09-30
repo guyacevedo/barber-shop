@@ -26,9 +26,15 @@
         }
       </ul>
     </div>
-    <a [routerLink]="anchorLink" class="text-white mt-7 py-3 sm:px-5 sm:w-6/12 w-full font-semibold bg-bs-third
-       hover:bg-bs-third/90 active:bg-bs-third/80 mx-auto
-       transition-colors shadow-md rounded-sm mb-4 lg:mb-0">{{ anchorText }}
-    </a>
+    <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 mt-7 mb-4 gap-2">
+      <a [routerLink]="anchorLink" class="text-white py-3 sm:px-5  w-full font-semibold bg-bs-third
+       hover:bg-bs-primary mx-auto transition-colors rounded-sm">
+        {{anchorText }}
+      </a>
+      <a [routerLink]="specialistsLink" class="text-white py-3 sm:px-5 w-full font-semibold bg-bs-third
+       hover:bg-bs-primary mx-auto transition-colors rounded-sm">
+        {{specialistsText }}
+      </a>
+    </div>
   </div>
 </div>

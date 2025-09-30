@@ -52,7 +52,7 @@ export class ServicesPrewiewListComponent {
       },
       {
         id: '2',
-        title: 'Barba',
+        title: 'Corte de barba',
         imageUrl: '/images/barba.webp',
         summary: 'Domina el arte de la barba perfecta. Nuestros expertos barberos esculpen y cuidan tu barba para un look impecable y varonil.',
         content: '',

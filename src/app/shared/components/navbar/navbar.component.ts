@@ -37,12 +37,7 @@ export class NavbarComponent {
       title: 'Nuestros Profesionales',
       ariaLabel: 'Abrir Sección de Nuestros Profesionales',
       href: '/info/nuestros-profesionales',
-    },
-    {
-      title: 'Novedades',
-      ariaLabel: 'Abrir Sección de Novedades',
-      href: '/news',
-    },
+    }
   ];
 
   toggleMenu() {

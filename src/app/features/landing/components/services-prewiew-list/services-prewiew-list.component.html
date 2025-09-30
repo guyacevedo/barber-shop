@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-home-page">
         <!-- Title -->
         <div class="mb-5 px-4 sm:px-6 lg:px-8">
-            <h3 class="md:text-4xl text-3xl text-center font-bold tracking-tight text-bs-primary">
+            <h3 class="md:text-4xl text-3xl text-center font-bold tracking-tight text-bs-third">
                 {{ title }}
             </h3>
         </div>
@@ -10,8 +10,8 @@
         <!-- Services Grid -->
         <div class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             @for (service of servicesList(); track service.id; let i = $index) {
-            <a [routerLink]="['/services', service.id]"
-                class="block group bg-white rounded-lg shadow-sm hover:shadow-lg animate-on-scroll transition duration-300 overflow-hidden"
+            <div
+                class="block group bg-white rounded-lg shadow-sm animate-on-scroll transition duration-300 overflow-hidden"
                 [ngClass]="i === 3 ? 'hidden sm:block lg:hidden' : ''">
                 <article class="flex flex-col">
                     <!-- Image -->
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </article>
-            </a>
+            </div>
             } @empty {
             <div class="mt-12">
                 <p class="text-gray-600">Sin servicios a ofertar actualmente.</p>
