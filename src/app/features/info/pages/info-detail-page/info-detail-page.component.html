@@ -1,0 +1,36 @@
+<div class="w-full py-8">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    @if (infoPage()) {
+    <article class="bg-white rounded-lg shadow mt-2 overflow-hidden">
+
+      @if (infoPage()?.imageUrl) {
+      <!-- Image -->
+      <div class="aspect-video h-auto md:h-98 w-full img-fade-container">
+        <picture>
+          <source media="(max-width: 767px)" [srcset]="getMobileImageUrl(infoPage()!.imageUrl!)" />
+          <img class="h-full w-full object-cover transition-transform duration-300 img-fade-in"
+            [src]="infoPage()!.imageUrl" [alt]="infoPage()!.title" />
+        </picture>
+      </div>
+      }
+
+      <div class="p-6 sm:p-8">
+        <!-- Header -->
+        <header class="mb-3">
+          <h1 class="text-3xl sm:text-4xl text-pretty font-bold tracking-tight text-bs-third">
+            {{ infoPage()?.title }}
+          </h1>
+          <h2 class="mt-2 text-lg sm:text-xl text-gray-700">
+            {{ infoPage()?.subtitle }}
+          </h2>
+        </header>
+
+        <!-- Content -->
+        <div class="prose prose-lg max-w-none pt-6 border-t border-gray-100" [innerHTML]="infoPage()?.content"></div>
+      </div>
+    </article>
+    } @else {
+    <p class="text-center text-gray-500">Cargando Información...</p>
+    }
+  </div>
+</div>

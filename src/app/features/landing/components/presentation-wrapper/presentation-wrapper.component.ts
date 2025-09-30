@@ -23,5 +23,5 @@ export class PresentationWrapperComponent {
   anchorText: string = 'Conoce más';
   anchorLink: string = '/info/quienes-somos';
   specialistsText: string = 'Nuestros Profesionales';
-  specialistsLink: string = '/specialists';
+  specialistsLink: string = '/info/nuestros-profesionales';
 }

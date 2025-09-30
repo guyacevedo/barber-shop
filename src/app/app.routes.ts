@@ -21,4 +21,19 @@ export const routes: Routes = [
             },
         ],
     },
+    // Info (/info/:slug, /info/help)
+    // Public Paths: For all users
+    {
+        path: 'info',
+        component: MainLayoutComponent,
+        children: [
+            {
+                path: '',
+                loadChildren: () =>
+                    import('./features/info/info.routes').then(
+                        (m) => m.INFO_ROUTES
+                    ),
+            }
+        ]
+    },
 ];

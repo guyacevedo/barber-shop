@@ -36,7 +36,7 @@
         <hr class="border-t border-lightblue-third w-full my-2" />
       </li>
       <li class="w-full">
-        <a (click)="toggleMenu()" routerLink="/info/help" [attr.tabindex]="isMenuOpen() ? 0 : -1" class="flex w-full items-center justify-start gap-1.5 p-2 text-md text-left font-medium
+        <a (click)="toggleMenu()" routerLink="/info/user/help" [attr.tabindex]="isMenuOpen() ? 0 : -1" class="flex w-full items-center justify-start gap-1.5 p-2 text-md text-left font-medium
            rounded-lg hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition-colors duration-300">
           <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
           <span class="text-lg text-white">Ayuda</span>
@@ -108,7 +108,7 @@
     </li>
     }
     <li>
-      <a routerLink="/info/help" class="flex flex-col justify-center items-center rounded-xl py-3 px-5
+      <a routerLink="/info/user/help" class="flex flex-col justify-center items-center rounded-xl py-3 px-5
          gap-0.5 hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition duration-300">
         <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
         <span class="text-sm text-white">Ayuda</span>
