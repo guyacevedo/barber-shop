@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "barber-shop-guy",
+    "public": "dist/barber-shop/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

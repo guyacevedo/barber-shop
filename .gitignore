@@ -5,7 +5,19 @@
 /tmp
 /out-tsc
 /bazel-out
-environments
+
+# ================================
+#  Angular environment
+# ================================
+src/environments/
+
+# ================================
+#  Firebase
+# ================================
+.firebase/
+.firebaserc
+firestore.indexes.json
+firestore.rules
 
 # Node
 /node_modules
