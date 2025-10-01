@@ -1,5 +1,4 @@
-<div class="bg-lightblue-primary/70 rounded-3xl py-6
-  xs:px-8 px-4 min-h-register-form border border-bs-third/40 shadow">
+<div class="bg-lightblue-primary/40 rounded-3xl py-6 xs:px-8 px-4 min-h-register-form shadow-lg">
   <!-- Title, description and Toggle button -->
   <div class="flex flex-col">
     <h2 class="text-bs-primary text-2xl sm:text-start text-center sm:text-3xl font-semibold">
@@ -105,7 +104,7 @@
           <!-- Specialist -->
           } @else {
           <div class="w-full">
-            <label for="specialties" class="text-bs-primary font-medium">Servicios</label>
+            <label for="specialties" class="text-bs-third font-medium">Servicios</label>
             <button (click)="openSpecialtyModal()" id="specialties" name="specialties" class="cursor-pointer w-full h-select-height pt-0.5 pl-3 text-start
                text-black rounded bg-white border border-bs-third hover:bg-amber-50
                 active:bg-amber-100 transition-all duration-300 shadow
@@ -152,10 +151,10 @@
       <!-- Register Button and Links -->
       <div class="w-full flex sm:flex-row flex-col justify-between items-center mt-3 gap-4">
         <p class="text-sm xs:w-80 w-full text-pretty text-center">Al registrarte, aceptas nuestros
-          <a routerLink="/info/terminos-y-condiciones" class="text-bs-third font-medium hover:underline">Términos y
+          <a routerLink="/info/terminos-y-condiciones" class="text-bs-primary font-medium hover:underline">Términos y
             Condiciones</a>
           y nuestra
-          <a routerLink="/info/politica-de-privacidad" class="text-bs-third font-medium hover:underline">Política de
+          <a routerLink="/info/politica-de-privacidad" class="text-bs-primary font-medium hover:underline">Política de
             Privacidad.</a>
         </p>
 

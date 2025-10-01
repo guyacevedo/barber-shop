@@ -1,0 +1,67 @@
+<div class="bg-lightblue-primary/40 rounded-3xl py-6 shadow-lg flex flex-col justify-center items-center">
+
+  <div class="flex flex-col xs:w-md">
+    <div class="text-center w-full">
+      <h2 class="text-bs-third text-3xl mb-2 font-semibold tracking-tight">
+        Iniciar Sesión
+      </h2>
+    </div>
+
+    <!-- Form -->
+    <div class="relative flex flex-col justify-center items-center xs:px-8 px-4">
+      <form autocomplete="on" [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col w-full justify-center"
+        [class.pointer-events-none]="isFormDisabled()">
+        <!-- Input Group -->
+        <div class="flex flex-col gap-4 py-2">
+          <app-input-custom type="email" formControlName="email" name="email" label="Correo electrónico"
+            placeholder="Ejemplo@gmail.com" autocomplete="email" [maxlength]="50" [noShowErrors]="true" />
+          <app-input-custom type="password" formControlName="password" name="password" label="Contraseña"
+            placeholder="Contraseña" autocomplete="current-password"
+            [type]="form.get('showPassword')?.value ? 'text' : 'password'" [maxlength]="50" [noShowErrors]="true" />
+          <div class="flex items-center gap-1.5 -mt-2.5 ml-1">
+            <app-checkbox-custom formControlName="showPassword" label="Mostrar contraseña"></app-checkbox-custom>
+          </div>
+
+          <!-- Error Text -->
+          @if (submitted && loginError()) {
+          <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center
+             bg-red-300 rounded text-red-950 text-medium text-pretty">
+            <app-svg-icon icon="error" size="20px"></app-svg-icon>
+            {{ loginError() }}
+          </div>
+          <!-- Information Text -->
+          } @else {
+          <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center
+             bg-bs-third/10 rounded text-bs-third text-medium text-pretty">
+            <app-svg-icon icon="info" size="20px"></app-svg-icon>
+            Completa ambos campos para ingresar.
+          </div>
+          }
+        </div>
+
+        <!-- Buttons -->
+        <div class="w-full flex flex-col items-center justify-center mt-4">
+          <button [disabled]="form.invalid || isFormDisabled()" type="submit" disabled class="cursor-pointer w-full py-3 text-white text-lg rounded-xl font-medium bg-bs-primary
+             hover:bg-bs-third active:bg-bs-third/90 transition-colors duration-300
+              shadow-md disabled:bg-bs-primary/50 disabled:shadow-none disabled:cursor-auto relative">
+            @if (isLoading()) {
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="animate-spin inline-block size-6 border-3
+                 border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading"></div>
+            </div>
+            <span class="opacity-0 text-lg">Ingresar</span>
+            } @else {
+            <span>Ingresar</span>
+            }
+          </button>
+          <p class="text-center font-medium mt-4">
+            ¿Eres nuevo?
+            <a routerLink="/auth/register" class="text-bs-third font-semibold underline underline-offset-2">
+              Registrate
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
