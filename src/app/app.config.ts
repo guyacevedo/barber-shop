@@ -11,6 +11,13 @@ import { getFirestore } from 'firebase/firestore';
 
 // Environment import
 import { environment } from '../environments/environment.prod';
+import { AUTH_REPOSITORY } from './core/interfaces/auth.repository.token';
+import { SPECIALTY_REPOSITORY } from './core/interfaces/specialty.repository.token';
+import { USER_REPOSITORY } from './core/interfaces/user.repository.token';
+import { FirebaseAuthService } from './services/firebase/firebase-auth.service';
+import { FirebaseSpecialtyService } from './services/firebase/firebase-specialty.service';
+import { FirebaseUserService } from './services/firebase/firebase-user.service';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +29,12 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideHttpClient(),
+
+    // Service providers
+    { provide: AUTH_REPOSITORY, useClass: FirebaseAuthService },
+    { provide: USER_REPOSITORY, useClass: FirebaseUserService },
+    { provide: SPECIALTY_REPOSITORY, useClass: FirebaseSpecialtyService },
 
     // Language provide
     { provide: LOCALE_ID, useValue: 'es' },

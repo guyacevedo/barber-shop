@@ -1,0 +1,186 @@
+<div class="bg-lightblue-primary/70 rounded-3xl py-6
+  xs:px-8 px-4 min-h-register-form border border-bs-third/40 shadow">
+  <!-- Title, description and Toggle button -->
+  <div class="flex flex-col">
+    <h2 class="text-bs-primary text-2xl sm:text-start text-center sm:text-3xl font-semibold">
+      Nuevo {{ this.isSpecialist() ? "Especialista" : "Cliente" }}
+    </h2>
+    <p class="mb-4 text-base sm:text-lg sm:text-start text-center text-pretty">
+      Este es el formulario de registro para
+
+      <strong class="text-bs-primary">{{
+        this.isSpecialist() ? "Especialista" : "Cliente"
+        }}</strong>. Si querés registrarte como
+
+      <strong class="text-bs-primary">{{
+        this.isSpecialist() ? "Cliente" : "Especialista"
+        }}</strong>,
+
+      <button class="cursor-pointer p-1 bg-bs-third text-white hover:underline hover:underline-offset-2"
+        (click)="toggleMode()">
+        hacé clic acá.
+      </button>
+    </p>
+  </div>
+
+  <!-- Form -->
+  <div class="relative">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-0.5 justify-between"
+      [class.opacity-70]="isLoading()">
+
+      <!-- Profile Picture Selector Input -->
+      <div
+        class="w-full flex sm:justify-start justify-center items-center rounded-3xl sm:bg-lightblue-secondary/40 py-3 sm:px-8 px-4">
+        <label for="profilePictureInput" tabindex="0"
+          (keydown.space)="$event.preventDefault(); profilePictureInput.click()"
+          class="cursor-pointer flex sm:flex-row flex-col justify-center items-center gap-x-6 gap-y-0 group rounded">
+
+          <div class="relative">
+            <img [src]="profilePictureUrl()" alt="Foto de perfil"
+              class="sm:h-22 h-18 sm:min-w-22 min-w-18 object-cover rounded-lg outline-2 outline-bs-primary">
+            <div class="absolute size-9 flex justify-center items-center
+             rounded-lg bg-bs-primary z-2 -top-2 -right-4 hover:bg-bs-third transition-colors">
+              <app-svg-icon icon="edit" class="text-bs-secondary"></app-svg-icon>
+            </div>
+          </div>
+
+          <div class="flex justify-center items-center text-bs-third w-full
+             font-medium text-lg py-3">
+            <div class="flex flex-col">
+              <div class="flex xs:flex-row flex-col">
+                <span class="pl-1 group-hover:underline text-center">Elegir foto de perfil</span>
+                <span class="text-bs-third/60 pl-1.5 text-center">(Opcional)</span>
+              </div>
+              <p class="sm:block hidden text-sm font-normal pl-1.5 pt-0.5 text-pretty">
+                Se recomienda seleccionar una foto a modo de retrato y con buena iluminación.
+              </p>
+              <p class="sm:block hidden text-sm font-normal pl-1.5 text-pretty">
+                Elegir una foto no es obligatorio: La idea es hacer más humano el manejo de Vital Avellaneda.
+              </p>
+            </div>
+          </div>
+        </label>
+        <input #profilePictureInput id="profilePictureInput" type="file" class="hidden"
+          (change)="onFileSelected($event)" accept="image/*">
+      </div>
+
+      <div class="flex flex-wrap gap-4 justify-center items-start lg:px-0 px-12">
+        <!-- Input Group (User base 1) -->
+        <div class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
+          <app-input-custom type="text" formControlName="firstName" name="firstName" label="Nombre"
+            placeholder="Nombre (2-30 caracteres)" autocomplete="given-name" [minlength]="2" [maxlength]="30" />
+          <app-input-custom type="text" formControlName="lastName" name="lastName" label="Apellido"
+            placeholder="Apellido (2-30 caracteres)" autocomplete="family-name" [minlength]="2" [maxlength]="30" />
+          <app-input-custom type="text" formControlName="dni" name="dni" label="DNI" placeholder="12345678"
+            autocomplete="off" [minlength]="7" [maxlength]="9" />
+          <div class="w-full">
+            <app-select-custom formControlName="sex" name="sex" label="Sexo" placeholder="Seleccionar..."
+              [options]="sexOptions" [labelMap]="sexLabels"></app-select-custom>
+          </div>
+        </div>
+
+        <!-- Input Group (User base 2) -->
+        <div class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
+          <app-input-custom type="email" formControlName="email" name="email" [maxlength]="50"
+            label="Correo electrónico" placeholder="Ejemplo@gmail.com" autocomplete="email" />
+          <app-input-custom type="password" formControlName="password" name="password" [minlength]="8" [maxlength]="50"
+            label="Contraseña" placeholder="Contraseña (8-50 caracteres)" autocomplete="new-password" />
+          <app-input-custom type="date" formControlName="birthDate" name="birthDate" label="Fecha de nacimiento"
+            placeholder="Fecha de nacimiento" [min]="minBirthDate" [max]="maxBirthDate" />
+          <app-input-custom type="text" formControlName="phone" name="phone" label="Número de Teléfono (opcional)"
+            placeholder="Número (8-15 dígitos)" autocomplete="tel" [minlength]="8" [maxlength]="15" />
+        </div>
+
+        <!-- Input Group (Role properties) -->
+        <div class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
+          <!-- Client -->
+          @if (userMode() === 'client') {
+          <app-input-custom type="number" formControlName="height" name="height"
+            label="Altura en centímetros (opcional)" placeholder="100-250 cm." autocomplete="off" [min]="100"
+            [max]="250" />
+
+          <app-input-custom type="number" formControlName="weight" name="weight" label="Peso en kilogramos (opcional)"
+            placeholder="30-250 kg." autocomplete="off" [min]="30" [max]="250" />
+
+          <!-- Specialist -->
+          } @else {
+          <div class="w-full">
+            <label for="specialties" class="text-bs-primary font-medium">Servicios</label>
+            <button (click)="openSpecialtyModal()" id="specialties" name="specialties" class="cursor-pointer w-full h-select-height pt-0.5 pl-3 text-start
+               text-black rounded bg-white border border-bs-third hover:bg-amber-50
+                active:bg-amber-100 transition-all duration-300 shadow
+                disabled:opacity-50 disabled:cursor-not-allowed">
+              Seleccionar ({{ form.get('specialties')?.value.length }} seleccionadas)
+            </button>
+          </div>
+
+          <div class="w-full">
+            <app-select-custom formControlName="availability" name="availability" label="Disponibilidad Horaria"
+              placeholder="Seleccionar..." [options]="availabilityOptions"
+              [labelMap]="availabilityLabels"></app-select-custom>
+          </div>
+          }
+        </div>
+
+        <!-- Specialty Selector Modal -->
+        @if (showSpecialtyModal()) {
+        <app-specialty-selector [lastSelected]="form.get('specialties')?.value"
+          (confirm)="onSpecialtiesSelected($event)" (cancel)="closeModal()"
+          class="absolute top-0 left-0 w-full h-full z-20 bg-white border border-bs-third/20 shadow rounded" />
+        }
+      </div>
+
+      <!-- Information Card -->
+      <div class="w-full flex flex-wrap justify-center items-center mt-8">
+        <!-- Error Text -->
+        @if (submitted && registerError) {
+        <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center w-full
+          bg-red-primary rounded text-red-secondary text-pretty">
+          <app-svg-icon icon="error" size="20px"></app-svg-icon>
+          {{ registerError }}
+        </div>
+        <!-- Information Text -->
+        } @else {
+        <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center w-full
+          bg-bs-third rounded text-lightblue-primary text-pretty">
+          <app-svg-icon icon="info" size="20px"></app-svg-icon>
+          Completa cada campo con tus datos.
+        </div>
+        }
+      </div>
+
+      <!-- Register Button and Links -->
+      <div class="w-full flex sm:flex-row flex-col justify-between items-center mt-3 gap-4">
+        <p class="text-sm xs:w-80 w-full text-pretty text-center">Al registrarte, aceptas nuestros
+          <a routerLink="/info/terminos-y-condiciones" class="text-bs-third font-medium hover:underline">Términos y
+            Condiciones</a>
+          y nuestra
+          <a routerLink="/info/politica-de-privacidad" class="text-bs-third font-medium hover:underline">Política de
+            Privacidad.</a>
+        </p>
+
+        <button type="submit" [disabled]="form.invalid || isLoading() || onSubmitStarted()" disabled class="self-center cursor-pointer xs:w-80 w-full px-12 py-3 text-white text-lg rounded-xl font-medium
+           bg-bs-primary hover:bg-bs-third active:bg-bs-third/90
+            transition duration-300 shadow-md 
+            disabled:bg-bs-primary/50 disabled:shadow-none disabled:cursor-auto
+            flex items-center justify-center gap-2">
+          @if (isLoading() || onSubmitStarted()) {
+          <div class="animate-spin inline-block size-6 border-3
+             border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
+          </div>
+          Registrando...
+          } @else {
+          Registrarme
+          }
+        </button>
+
+        <p class="xs:w-80 w-full font-medium text-center text-pretty">
+          ¿Ya tenes una cuenta?
+          <a class="text-bs-third font-semibold underline underline-offset-2" routerLink="/auth/login">
+            Iniciá Sesión
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

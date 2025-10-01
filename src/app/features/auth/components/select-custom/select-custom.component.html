@@ -1,0 +1,24 @@
+<div class="w-full">
+  <div class="flex flex-wrap items-center gap-1.5">
+    <label class="text-bs-primary font-medium" [for]="name">
+      {{ label }}
+    </label>
+  </div>
+  <select
+    class="w-full bg-white text-black border border-bs-third rounded h-select-height pl-2 py-2 focus:outline focus:shadow-bs-third shadow"
+    [name]="name || 'select'" [id]="name" [value]="value() || ''" (change)="onSelectChange($event)"
+    [disabled]="isDisabled">
+    <option hidden [value]="''">{{ labelMap?.get(value()) ?? placeholder }}</option>
+    @for (opt of options; track opt) {
+    <option class="text-sm text-black" [value]="opt">
+      {{ labelMap?.get(opt) ?? opt }}
+    </option>
+    }
+  </select>
+
+  @if (showErrors && errorMessage) {
+  <ul class="absolute -bottom-5 text-sm text-red-700">
+    <li>❌ {{ errorMessage }}</li>
+  </ul>
+  }
+</div>
