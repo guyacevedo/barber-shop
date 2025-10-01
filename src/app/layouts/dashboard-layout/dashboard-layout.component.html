@@ -1,0 +1,21 @@
+@if (showSplash()) {
+<app-splash backgroundColor="--color-va-primary"/>
+} @else {
+<div class="min-h-dvh flex flex-col bg-white">
+  <!-- Header -->
+  <app-header-dashboard />
+
+  <!-- Default layout structure Header - Footer -->
+  <!-- <div class="flex-1"></div> -->
+
+  <!-- Main -->
+  <main class="flex-1 pt-28">
+    <router-outlet />
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-6">
+    <app-footer />
+  </footer>
+</div>
+}

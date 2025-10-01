@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { publicGuard } from './core/guards/public.guard';
+import { authGuard } from './core/guards/auth.guard';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
     // Main (/home)
@@ -49,6 +51,22 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./features/auth/auth.routes').then(
                         (m) => m.AUTH_ROUTES
+                    ),
+            },
+        ],
+    },
+    // Dashboard (/client, /specialist)
+    // Private Paths: Only for authenticated users
+    {
+        path: 'dashboard',
+        component: DashboardLayoutComponent,
+        canActivate: [authGuard],
+        children: [
+            {
+                path: '',
+                loadChildren: () =>
+                    import('./features/dashboard/dashboard.routes').then(
+                        (m) => m.DASHBOARD_ROUTES
                     ),
             },
         ],

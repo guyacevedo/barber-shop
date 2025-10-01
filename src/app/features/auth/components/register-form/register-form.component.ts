@@ -250,8 +250,7 @@ export class RegisterFormComponent {
       this.authFacade.setUser(submitData);
 
       // 5. Redirect to dashboard by role
-      console.log('Redirect to dashboard by role')
-      //this.authFacade.redirectUserByRole(submitData);
+      this.authFacade.redirectUserByRole(submitData);
     } catch (error) {
       console.error('Register error', error);
       this.submitted = true;

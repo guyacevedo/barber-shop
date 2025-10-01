@@ -81,7 +81,6 @@ export class AuthFacade {
 
       // Redirect user to appropriate dashboard based on role
       if (user) {
-        console.log(user, 'redirect')
         this.redirectUserByRole(user);
       }
     } catch (error: any) {

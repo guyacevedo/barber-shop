@@ -91,24 +91,41 @@
   <!-- Logo -->
   <a routerLink="/home" class="flex text-center p-2 rounded-xl hover:bg-bs-third"
     aria-label="Ir a la página de inicio de Barber Shop">
-    <h1 class="text-3xl font-semibold text-white hidden lg:block object-contain xl:w-72 lg:w-48 w-32">Barber Shop</h1>
-    <h1 class="text-3xl font-semibold text-white block lg:hidden object-contain lg:w-72 w-56">Barber Shop</h1>
+    <h1 class="text-3xl font-semibold text-white hidden xl:block object-contain xl:w-72 lg:w-48 w-32">Barber Shop</h1>
+    <h1 class="text-2xl font-semibold text-white block xl:hidden object-contain w-56">Barber Shop</h1>
   </a>
 
+  <!-- Portal Link -->
+  <a routerLink="/auth/login" aria-label="Acceso al Portal" class="hidden lg:hidden xs:flex justify-center items-center text-center gap-2 md:py-4
+     md:px-7 p-2 w-fit mr-4 text-lg font-semibold bg-white text-bs-primary
+     rounded-full hover:bg-lightblue-secondary active:bg-lightblue-secondary/90 transition duration-300 shadow">
+    <div class="flex flex-wrap justify-center items-center">
+      <app-svg-icon icon="user" size="32px"></app-svg-icon>
+    </div>
+    <span class="hidden lg:block">Ingresar al Portal</span>
+    <span class="hidden md:block xs:hidden lg:hidden">Portal</span>
+  </a>
 
   <!-- Desktop Navigation -->
-  <ul class="hidden lg:flex justify-center items-center h-full mr-4 ml-2">
+  <ul class="hidden lg:flex justify-center items-center h-full mr-2 ml-2">
     @for (item of navItems; track item.title) {
     <li>
-      <a class="flex items-center justify-center p-2 mr-4 text-md text-center font-medium
+      <a class="flex items-center justify-center p-1.5 xl:p-2 mr-2 xl:mr-4 text-md text-center font-medium
          rounded-lg hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition-colors duration-300"
         [routerLink]="item.href" tabindex="0" [attr.aria-label]="item.ariaLabel">
         {{ item.title }}
       </a>
     </li>
     }
-    <li>
-      <a routerLink="/info/user/help" class="flex flex-col justify-center items-center rounded-xl py-3 px-5
+    <li class="2xl:ml-8 ml-2 flex justify-between xl:gap-4 gap-2 items-center">
+      <a routerLink="/auth/login" aria-label="Acceso al Portal" class="flex justify-center items-center text-center gap-1 py-1 px-1 xl:min-w-54 min-w-10
+         text-lg font-semibold bg-white text-bs-primary rounded-full hover:bg-lightblue-secondary active:bg-lightblue-secondary/90 transition duration-300 shadow">
+        <div class="flex justify-center items-center">
+          <app-svg-icon icon="user" size="32px"></app-svg-icon>
+        </div>
+        <span  class="hidden xl:block">Ingresar al Portal</span>
+      </a>
+      <a routerLink="/info/user/help" class="flex flex-col justify-center items-center rounded-xl py-2 px-2
          gap-0.5 hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition duration-300">
         <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
         <span class="text-sm text-white">Ayuda</span>

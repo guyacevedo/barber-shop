@@ -1,0 +1,60 @@
+<div class="relative">
+  <button class="user-submenu-button cursor-pointer flex flex-wrap justify-center items-center
+    rounded-full gap-2 md:px-4 md:py-2 md:min-w-48 p-2
+  md:bg-bs-third/60 text-bs-white font-medium
+  md:hover:bg-bs-third md:active:bg-bs-third/80 focus:bg-bs-third bg-bs-third
+    transition duration-300"
+    aria-label="Abrir submenú de usuario"
+    (click)="toggleDropdown($event)">
+        
+    <div class="text-bs-primary bg-lightblue-primary md:hidden flex justify-center items-center
+      outline-2 outline-lightblue-secondary/40 size-9 rounded-full shadow overflow-hidden img-fade-container">
+      @defer (when profilePictureUrl()) {
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
+      }
+    </div>
+        
+    <app-svg-icon icon="user" size="34px" class="hidden md:block"></app-svg-icon>
+    <span class="hidden md:block">{{ name }}</span>
+  </button>
+
+  @if (isDropdownVisible()) {
+    <div class="absolute md:top-13 top-15 right-0 bg-lightblue-primary rounded-2xl sm:min-w-72 min-w-56 min-h-72
+      p-3 flex flex-col shadow user-submenu-dropdown border border-bs-third"
+      [class.open]="isDropdownOpen()">
+      <div class="flex flex-wrap gap-4 justify-start items-center w-full">
+        <div class="size-12 text-bs-third rounded-full overflow-hidden outline outline-bs-third img-fade-container bg-bs-third">
+          @defer (when profilePictureUrl()) {
+            <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
+          }
+        </div>
+        <div class="flex flex-col">
+          <span class="font-semibold text-bs-third">{{ name }}</span>
+          <span class="text-bs-third text-sm">{{ role }}</span>
+        </div>
+      </div>
+      <hr class="mt-2 h-0.5 w-full text-bs-third/60">
+      <div class="flex flex-col gap-1 justify-start items-center w-full mt-2">
+        @for (item of menuItems; track item.text) {
+          <button 
+            (click)="item.action?.()"
+            class="flex flex-wrap gap-2 justify-start items-center w-full
+            hover:bg-bs-primary/20 text-bs-third active:bg-bs-primary/60 rounded-md h-full px-1.5
+             py-2 transition duration-300 cursor-pointer">
+            <app-svg-icon [icon]="item.icon" size="28px"></app-svg-icon>
+            {{ item.text }}
+          </button>
+        }
+      </div>
+      <hr class="mt-2 h-0.5 w-full text-bs-third/60">
+      <button 
+      (click)="handleLogoutClick()"
+      class="flex flex-wrap gap-2 justify-start items-center w-full
+        mt-2 hover:bg-red-900/10 text-red-900 active:bg-red-900/20
+        rounded-md h-full px-1.5 py-2 transition duration-300 cursor-pointer">
+        <app-svg-icon icon="logout" size="28px"></app-svg-icon>
+        Cerrar Sesión
+      </button>
+    </div>
+  }
+</div>

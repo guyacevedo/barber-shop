@@ -1,0 +1,20 @@
+@if (!user() || isCheckingAuth()) {
+  <app-splash></app-splash>
+} @else {
+  <div class="flex flex-col justify-center items-center size-full">
+    <h1 class="lg:hidden block text-3xl md:text-4xl font-bold tracking-tight
+      text-bs-primary mb-3 px-12 text-center">
+      Portal para Clientes
+    </h1>
+    
+    <div class="flex 3xl:flex-row flex-col flex-wrap justify-center 3xl:items-start items-center 
+      h-full outline outline-lightblue-secondary/70 bg-bs-secondary/10 shadow
+      mx-4 px-3 rounded-xl gap-8 py-5">
+  
+      <!-- User Information Card -->
+      <div class="flex justify-center items-start w-fit h-full">
+        <app-user-information-card></app-user-information-card>
+      </div>
+    </div>
+  </div>
+}

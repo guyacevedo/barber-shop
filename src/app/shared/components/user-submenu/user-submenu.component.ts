@@ -1,0 +1,189 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  HostListener,
+  ElementRef,
+  computed,
+  effect,
+} from '@angular/core';
+import { AuthFacade } from '../../../features/auth/auth.facade';
+import { SvgIconComponent } from '../../icons/svg-icon.component';
+import { UserRoles as R } from '../../../core/enums';
+import { ICON_PATHS } from '../../icons/icon-paths';
+import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog/dialog.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { CloudinaryService } from '../../../services/cloudinary/cloudinary.service';
+
+interface MenuItem {
+  icon: keyof typeof ICON_PATHS;
+  text: string;
+  action?: () => void;
+}
+
+@Component({
+  selector: 'app-user-submenu',
+  imports: [SvgIconComponent],
+  templateUrl: './user-submenu.component.html',
+  styleUrl: './user-submenu.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class UserSubmenuComponent {
+  private authFacade = inject(AuthFacade);
+  private elementRef = inject(ElementRef);
+  private router = inject(Router);
+  readonly dialogService = inject(DialogService);
+  private readonly cloudinaryService = inject(CloudinaryService);
+
+  readonly user = this.authFacade.user;
+  readonly name = this.user()?.firstName;
+  readonly role = this.user()?.role === R.CLIENT ? 'Cliente' : 'Especialista';
+
+  readonly defaultProfilePictureUrl =
+    this.cloudinaryService.defaultProfilePictureUrl;
+
+  readonly profilePictureUrl = computed(() => {
+    const user = this.user();
+    if (user && user.profilePictureUrl) {
+      return this.cloudinaryService.getTransformedUrl(
+        user.profilePictureUrl,
+        'w_40,h_40,c_fill,g_face,f_webp'
+      );
+    }
+    return this.defaultProfilePictureUrl;
+  });
+
+  // Signal to control the dropdown state
+  readonly isDropdownOpen = signal(false);
+  // Signal to control the dropdown visibility
+  readonly isDropdownVisible = signal(false);
+
+  readonly menuItems: MenuItem[] = [
+    {
+      icon: 'user',
+      text: 'Mi cuenta',
+      action: () => this.handleAccountClick(),
+    },
+    {
+      icon: 'appointment',
+      text: 'Mis turnos',
+      action: () => this.handleAppointmentsClick(),
+    },
+    {
+      icon: 'help',
+      text: 'Ayuda',
+      action: () => this.handleHelpClick(),
+    },
+  ];
+
+  // Method to toggle the dropdown
+  toggleDropdown(event: Event): void {
+    event.stopPropagation(); // Prevent the event from propagating to the document
+
+    if (this.isDropdownOpen()) {
+      this.closeDropdown();
+    } else {
+      this.openDropdown();
+    }
+  }
+
+  // Method to open the dropdown
+  openDropdown(): void {
+    this.isDropdownVisible.set(true);
+    // Small delay so the DOM updates before applying the animation
+    setTimeout(() => {
+      this.isDropdownOpen.set(true);
+    }, 10);
+  }
+
+  // Method to close the dropdown
+  async closeDropdown(): Promise<void> {
+    this.isDropdownOpen.set(false);
+    // Wait for the exit animation to finish before hiding the element
+    setTimeout(() => {
+      this.isDropdownVisible.set(false);
+    }, 280); // Exit animation duration
+  }
+
+  // HostListener to detect clicks outside the component
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    // Only close if the dropdown is open and the click was outside the component
+    if (
+      this.isDropdownOpen() &&
+      !this.elementRef.nativeElement.contains(event.target)
+    ) {
+      this.closeDropdown();
+    }
+  }
+
+  private handleAccountClick(): void {
+    this.router.navigate(['/dashboard/profile/edit']);
+    this.closeDropdown();
+  }
+
+  private handleAppointmentsClick(): void {
+    this.router.navigate(['/dashboard/appointments-list']);
+    this.closeDropdown();
+  }
+
+  private handleHelpClick(): void {
+    this.router.navigate(['/info/user/help']);
+    this.closeDropdown();
+  }
+
+  async handleLogoutClick(): Promise<void> {
+    await this.closeDropdown();
+
+    // setTimeout(() => {
+    this.dialogService
+      .openGeneric<DialogComponent, boolean>(DialogComponent, {
+        title: 'Cerrar Sesión',
+        message: '¿Seguro de salir de tu cuenta?',
+        confirmText: 'Cerrar Sesión',
+        confirmTextColor: 'text-red-900',
+        confirmTextBgColor: 'bg-red-100',
+        confirmTextBgColorHover: 'hover:bg-red-300/90',
+        confirmTextBgColorActive: 'active:bg-red-900/70',
+        cancelText: 'Cancelar',
+        icon: 'logout',
+        iconColor: 'text-red-900',
+        iconBgColor: 'bg-red-100',
+      })
+      .subscribe(async (result) => {
+        if (result) {
+          await this.authFacade.logout();
+          this.router.navigate(['/auth/login']);
+        }
+      });
+  }
+
+  constructor() {
+    // Effect to handle image loading animations
+    effect(() => {
+      this.profilePictureUrl();
+      this.isDropdownVisible();
+
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach(image => {
+            // Only add listener if it's not already loaded
+            if (image && !image.classList.contains('is-loaded')) {
+              if (image.complete) {
+                image.classList.add('is-loaded');
+              } else {
+                image.addEventListener('load', () => {
+                  image.classList.add('is-loaded');
+                }, { once: true });
+              }
+            }
+          });
+        }
+      });
+    });
+  }
+}

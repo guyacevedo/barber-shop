@@ -1,0 +1,66 @@
+<div class="user-card relative flex 3xl:flex-col not-md:flex-col flex-row justify-start 3xl:items-center not-md:items-center items-start
+  4xl:min-h-96 4xl:min-w-108 3xl:w-auto not-md:w-auto w-full bg-lightblue-primary rounded-2xl h-full
+  border border-lightblue-third shadow p-2 overflow-auto 3xl:gap-0 not-md:gap-0 gap-4">
+
+  <!-- Edit Button -->
+  <button 
+    routerLink="/dashboard/profile/edit"
+    class="hidden edit-btn opacity-0 cursor-pointer lg:flex justify-center
+    absolute right-2 items-center text-bs-fifth
+    rounded-2xl w-fit px-3 py-1.5 bg-bs-third/30
+    gap-0.5 transition-all duration-300 focus:opacity-100
+    hover:bg-bs-third/40 active:bg-bs-third/50">
+      <app-svg-icon icon="edit" size="22px"></app-svg-icon>
+      Editar
+  </button>
+
+  <!-- Profile and Name -->
+  <div class="px-4 m-auto flex flex-col justify-center items-center">
+    <!-- Profile Image -->
+    <div class="text-bs-fifth bg-lightblue-primary flex justify-center items-center m-2
+      outline-2 outline-lightblue-secondary/40 size-32 rounded-full shadow overflow-hidden img-fade-container">
+      @defer (when profilePictureUrl()) {
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
+      }
+    </div>
+  
+    <!-- Name and User State -->
+    <div class="flex flex-wrap flex-col justify-center items-center mb-2.5 w-full">
+      <h3 class="xs:text-3xl text-2xl text-bs-third font-bold mt-1 text-center">{{ user()?.firstName }}</h3>
+      <div class="mt-2 flex flex-wrap justify-center items-center bg-green-600/20 shadow
+      outline outline-green-600 text-green-900 text-sm
+      font-medium rounded-full py-1 px-2 w-fit text-center">
+        {{ roleLabel }} {{ statusLabel }}
+      </div>
+    </div>
+  </div>
+  
+  <div class="w-px self-stretch bg-bs-third/20 3xl:w-full not-md:w-full 3xl:h-px not-md:h-px 3xl:my-2.5 not-md:my-2.5 3xl:mx-0 not-md:mx-0"></div>
+
+  <!-- Personal Data -->
+  <div class="flex flex-col flex-wrap justify-start items-start
+    size-full rounded-lg px-3">
+    <h4 class="font-semibold text-bs-third mb-0.5 text-xl">Datos personales</h4>
+    @for (item of personalData; track item.label) {
+      <p class="text-pretty flex flex-wrap">
+        <span class="font-bold text-bs-third">{{ item.label }}:</span>
+        <span class="text-bs-third/80 ml-1 font-medium">{{ item.value }}</span>
+      </p>
+    }
+  </div>
+
+  <div class="w-px self-stretch bg-bs-third/20 3xl:w-full not-md:w-full 3xl:h-px not-md:h-px 3xl:my-2.5 not-md:my-2.5 3xl:mx-0 not-md:mx-0"></div>
+
+
+  <!-- Especialist Data -->
+  <div class="flex flex-col flex-wrap justify-start items-start
+    size-full rounded-lg px-3">
+    <h4 class="font-semibold text-bs-third mb-0.5 text-xl">Datos</h4>
+    @for (item of customData; track item.label) {
+      <p class="text-pretty flex flex-wrap">
+        <span class="font-bold text-bs-third">{{ item.label }}:</span>
+        <span class="text-bs-third/80 ml-1 font-medium">{{ item.value }}</span>
+      </p>
+    }
+  </div>
+</div>

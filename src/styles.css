@@ -15,12 +15,12 @@
   /* Spacing */
   --spacing-home-page: 75rem;
   --spacing-main-carousel: 36rem;
-  --spacing-step-size: 3.5rem;
   --spacing-register-page: 80rem;
   --spacing-input-group: 32%;
   --spacing-select-height: 2.64rem;
   --spacing-specialty-width: 15rem;
   --spacing-register-form: 42.25rem;
+  --spacing-dashboard-height: 51rem;
 
   /* Breakpoints */
   --breakpoint-xxs: 414px;
