@@ -60,10 +60,10 @@ export class FirebaseAuthService implements AuthRepository {
             birthDate: new Date(),
             email: user.email || '',
             phone: 'Desconocido',
-            profilePictureUrl: user.photoURL || 'Desconocido',
+            profilePictureUrl: user.photoURL || 'https://res.cloudinary.com/dfurubiqj/image/upload/v1759346209/default-profile_qzf9ga_mkixzk.png',
             registrationDate: new Date(user.metadata.creationTime || Date.now()),
             role: UserRoles.CLIENT,
-            status: UserStatus.ACTIVE,
+            status: UserStatus.DISABLED,
           };
           resolve(userBase);
         }

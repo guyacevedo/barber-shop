@@ -11,6 +11,7 @@ export const authGuard = async () => {
   }
 
   const isAuthenticated = authFacade.isAuthenticated();
+  console.log(isAuthenticated)
   if (isAuthenticated) {
     return true;
   } else {

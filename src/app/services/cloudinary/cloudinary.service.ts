@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment.prod';
 export class CloudinaryService {
   private cloudName = environment.cloudinaryConfig.cloud_name;
   private uploadPreset = environment.cloudinaryConfig.upload_preset;
-  public defaultProfilePictureUrl = 'https://res.cloudinary.com/dsd1komi4/image/upload/v1755811833/default-profile_qzf9ga.png';
+  public defaultProfilePictureUrl = 'https://res.cloudinary.com/dfurubiqj/image/upload/v1759346209/default-profile_qzf9ga_mkixzk.png';
 
   constructor(private http: HttpClient) { }
 

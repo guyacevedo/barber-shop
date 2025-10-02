@@ -22,7 +22,6 @@ export class DashboardLayoutComponent {
   readonly dialogService = inject(DialogService);
 
   constructor() {
-    console.log('Dashboard Layout Started');
     setTimeout(() => this.showSplash.set(false), 500);
   }
 }

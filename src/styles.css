@@ -86,7 +86,7 @@ body {
 
 /* Image Fade-In Animation */
 .img-fade-container {
-  background-color: var(--color-va-primary);
+  background-color: var(--color-bs-primary);
   overflow: hidden;
   position: relative;
 }

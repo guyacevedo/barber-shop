@@ -121,7 +121,7 @@ export class UserFacade {
         this._clients.set([]);
       }
     } catch (err: any) {
-      this._error.set(err.message || 'Error obteniendo los pacientes');
+      this._error.set(err.message || 'Error obteniendo los clientes');
     } finally {
       this._saving.set(false);
     }

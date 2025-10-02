@@ -48,7 +48,7 @@ export class AuthFacade {
 
     try {
       const isAuthenticated = await this.authService.isAuthenticated();
-
+      console.log(isAuthenticated)
       if (isAuthenticated) {
         const currentUser = await this.authService.getCurrentUser();
         this._user.set(currentUser);

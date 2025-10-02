@@ -12,6 +12,7 @@ export const publicGuard = async () => {
   }
 
   const user = authFacade.user();
+  console.log(user)
   if (!user) {
     return true; // Allow access to public pages if not authenticated
   }
