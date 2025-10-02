@@ -1,0 +1,168 @@
+import { Injectable, inject } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  setDoc,
+  query,
+  where,
+  orderBy,
+} from '@angular/fire/firestore';
+import { Appointment } from '../../core/models';
+import { AppointmentRepository } from '../../core/interfaces/appointment.repository';
+import { AppointmentStatus } from '../../core/enums';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FirebaseAppointmentService implements AppointmentRepository {
+  private firestore: Firestore = inject(Firestore);
+  private collectionName = 'appointments';
+
+  async create(appointment: Appointment): Promise<void> {
+    const appointmentRef = doc(
+      this.firestore,
+      this.collectionName,
+      appointment.id
+    );
+    await setDoc(appointmentRef, appointment);
+  }
+
+  async getById(id: string): Promise<Appointment | null> {
+    const appointmentRef = doc(this.firestore, this.collectionName, id);
+    const docSnap = await getDoc(appointmentRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    }
+    return null;
+  }
+
+  async update(appointment: Partial<Appointment>): Promise<void> {
+    if (!appointment.id) {
+      throw new Error('El ID del turno es requerido para actualizarlo.');
+    }
+    const appointmentRef = doc(
+      this.firestore,
+      this.collectionName,
+      appointment.id
+    );
+    await setDoc(appointmentRef, appointment, { merge: true });
+  }
+
+  private async getAppointmentsByField(
+    fieldName: 'clientId' | 'specialistId',
+    id: string
+  ): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    console.log(appointmentsCol)
+    const q = query(
+      appointmentsCol,
+      where(fieldName, '==', id),
+      orderBy('date', 'asc')
+    );
+    const snapshot = await getDocs(q);
+    console.info(snapshot)
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getForClient(clientId: string): Promise<Appointment[]> {
+    return this.getAppointmentsByField('clientId', clientId);
+  }
+
+  async getForSpecialist(specialistId: string): Promise<Appointment[]> {
+    return this.getAppointmentsByField('specialistId', specialistId);
+  }
+
+  async getCompletedForClient(clientId: string): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('clientId', '==', clientId),
+      where('status', '==', AppointmentStatus.COMPLETED),
+      orderBy('date', 'desc')
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getForSpecialistByStatuses(specialistId: string, statuses: AppointmentStatus[]): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('specialistId', '==', specialistId),
+      where('status', 'in', statuses),
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getAppointmentsBySpecialistAndDateRange(specialistId: string, startDate: Date, endDate: Date): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('specialistId', '==', specialistId),
+      where('date', '>=', startDate),
+      where('date', '<=', endDate)
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getAppointmentsByClientAndDateRange(clientId: string, startDate: Date, endDate: Date): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('clientId', '==', clientId),
+      where('date', '>=', startDate),
+      where('date', '<=', endDate)
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+}

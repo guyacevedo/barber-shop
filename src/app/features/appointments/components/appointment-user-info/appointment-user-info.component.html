@@ -1,0 +1,70 @@
+<div class="flex flex-col w-full">
+  <!-- Title -->
+  <div class="sm:mt-6 mt-8 sm:ml-5 flex xs:flex-row flex-col flex-wrap xs:gap-2 gap-1 sm:justify-start justify-center items-center text-bs-primary mb-1">
+      <div class="size-12 text-bs-primary rounded-full overflow-hidden outline outline-bs-primary bg-bs-primary img-fade-container">
+      @defer (when showContent()) {
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in user-info-image">
+      } 
+    </div>
+    <h3 class="text-2xl font-semibold text-center">
+      {{
+        userRoleToShow === "client"
+          ? "Información del Cliente"
+          : "Información del Especialista"
+      }}
+    </h3>
+  </div>
+
+  <!-- Content -->
+  <div 
+    class="flex flex-col justify-center gap-1.5 w-full p-4 ml-2 mt-1.5 rounded-2xl outline-2 outline-bs-primary shadow"
+    [class.min-h-60]="userRoleToShow === 'client'"
+    [class.min-h-42]="userRoleToShow === 'specialist'"
+    >
+    @if (showContent()) {
+      <!-- Personal Data -->
+      @for (item of personalData; track item.label) {
+        <div
+          class="flex gap-2 justify-start items-start border-b border-b-bs-primary/30"
+        >
+          <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
+          <p class="text-lg font-medium">
+            {{ item.label }}: 
+            <span class="font-normal">
+              {{ item.value }}
+            </span>
+          </p>
+        </div>
+      }
+    
+      <!-- Medical Data -->
+      @for (item of customData; track item.label) {
+        <div
+          class="flex gap-2 justify-start items-start border-b border-b-bs-primary/30"
+        >
+          <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
+          <p class="text-lg font-medium text-pretty">
+            {{ item.label }}
+            <span class="font-normal">
+              {{ item.value }}
+            </span>
+          </p>
+        </div>
+      }
+    } @else {
+      <div 
+        class="flex flex-col justify-center items-center w-full"
+      >
+        <div 
+          class="animate-spin inline-block size-8
+            border-4 border-t-transparent text-bs-third rounded-full" 
+          role="status" 
+          aria-label="loading"
+        ></div>
+        <span class="text-center font-medium text-xl mt-3">
+          Cargando información...
+        </span>
+      </div>
+    }
+  </div>
+</div>

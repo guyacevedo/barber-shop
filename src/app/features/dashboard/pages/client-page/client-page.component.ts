@@ -8,12 +8,14 @@ import { AuthFacade } from '../../../auth/auth.facade';
 import { UserBase } from '../../../../core/models';
 import { SplashComponent } from '../../../../shared/components/splash/splash.component';
 import { UserInformationCardComponent } from "../../components/user-information-card/user-information-card.component";
+import { DashboardAccessComponent } from "../../components/dashboard-access/dashboard-access.component";
 
 @Component({
   selector: 'app-client-page',
   imports: [
     SplashComponent,
-    UserInformationCardComponent
+    UserInformationCardComponent,
+    DashboardAccessComponent
 ],
   templateUrl: './client-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

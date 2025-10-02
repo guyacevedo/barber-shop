@@ -6,7 +6,7 @@
   <button 
     routerLink="/dashboard/profile/edit"
     class="hidden edit-btn opacity-0 cursor-pointer lg:flex justify-center
-    absolute right-2 items-center text-bs-fifth
+    absolute right-2 items-center text-bs-primary
     rounded-2xl w-fit px-3 py-1.5 bg-bs-third/30
     gap-0.5 transition-all duration-300 focus:opacity-100
     hover:bg-bs-third/40 active:bg-bs-third/50">
@@ -17,7 +17,7 @@
   <!-- Profile and Name -->
   <div class="px-4 m-auto flex flex-col justify-center items-center">
     <!-- Profile Image -->
-    <div class="text-bs-fifth bg-lightblue-primary flex justify-center items-center m-2
+    <div class="text-bs-primary bg-lightblue-primary flex justify-center items-center m-2
       outline-2 outline-lightblue-secondary/40 size-32 rounded-full shadow overflow-hidden img-fade-container">
       @defer (when profilePictureUrl()) {
         <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">

@@ -21,6 +21,7 @@
   --spacing-specialty-width: 15rem;
   --spacing-register-form: 42.25rem;
   --spacing-dashboard-height: 51rem;
+  --spacing-step-size: 3.5rem;
 
   /* Breakpoints */
   --breakpoint-xxs: 414px;

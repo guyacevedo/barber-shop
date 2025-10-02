@@ -1,5 +1,5 @@
 import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 
@@ -18,12 +18,14 @@ import { FirebaseAuthService } from './services/firebase/firebase-auth.service';
 import { FirebaseSpecialtyService } from './services/firebase/firebase-specialty.service';
 import { FirebaseUserService } from './services/firebase/firebase-user.service';
 import { provideHttpClient } from '@angular/common/http';
+import { APPOINTMENT_REPOSITORY } from './core/interfaces/appointment.repository.token';
+import { FirebaseAppointmentService } from './services/firebase/firebase-appointment.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
 
     // Firebase configuration and services
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
@@ -35,6 +37,7 @@ export const appConfig: ApplicationConfig = {
     { provide: AUTH_REPOSITORY, useClass: FirebaseAuthService },
     { provide: USER_REPOSITORY, useClass: FirebaseUserService },
     { provide: SPECIALTY_REPOSITORY, useClass: FirebaseSpecialtyService },
+    { provide: APPOINTMENT_REPOSITORY, useClass: FirebaseAppointmentService },
 
     // Language provide
     { provide: LOCALE_ID, useValue: 'es' },

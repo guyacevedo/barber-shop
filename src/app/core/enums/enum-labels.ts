@@ -2,6 +2,7 @@ import {
   Sex,
   UserRoles,
   UserStatus,
+  AppointmentStatus,
 } from './index';
 
 // Sex
@@ -25,6 +26,13 @@ export const STATUS_LABELS = new Map<string, string>([
   [UserStatus.ACTIVE, 'Activo'],
   [UserStatus.INACTIVE, 'Inactivo'],
   [UserStatus.DISABLED, 'Inhabilitado'],
+]);
+
+// Appointment Status
+export const APPOINTMENT_STATUS_LABELS = new Map<string, string>([
+  [AppointmentStatus.PENDING, 'Pendiente'],
+  [AppointmentStatus.COMPLETED, 'Completado'],
+  [AppointmentStatus.CANCELED, 'Cancelado'],
 ]);
 
 // Utility function to get the label from any enum-labels Map

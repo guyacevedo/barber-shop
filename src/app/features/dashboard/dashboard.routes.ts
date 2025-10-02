@@ -12,6 +12,14 @@ export const DASHBOARD_ROUTES: Routes = [
         (m) => m.ClientPageComponent
       ),
   },
+  {
+    path: 'request-appointment',
+    canActivate: [roleGuard([UserRoles.CLIENT])],
+    loadComponent: () =>
+      import('./pages/request-appointment-page/request-appointment-page.component').then(
+        (m) => m.RequestAppointmentPageComponent
+      ),
+  },
   // Authenticated users with Specialist role
   {
     path: 'specialist',
@@ -21,7 +29,16 @@ export const DASHBOARD_ROUTES: Routes = [
         (m) => m.SpecialistPageComponent
       ),
   },
-   // Authenticated users
+  // Authenticated users with Client or Specialist role
+  {
+    path: 'appointments-list',
+    canActivate: [roleGuard([UserRoles.CLIENT, UserRoles.SPECIALIST])],
+    loadComponent: () =>
+      import('./pages/appointment-list-page/appointment-list-page.component').then(
+        (m) => m.AppointmentListPageComponent
+      ),
+  },
+  // Authenticated users
   {
     path: 'profile/edit',
     canActivate: [roleGuard([UserRoles.CLIENT, UserRoles.SPECIALIST, UserRoles.ADMIN])],
