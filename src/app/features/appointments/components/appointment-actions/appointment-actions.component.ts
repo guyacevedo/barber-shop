@@ -7,7 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
-import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { DialogService } from '../../../../shared/services/dialog/dialog.service';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
 import {
@@ -23,14 +23,13 @@ import {
   RateAppointmentComponent,
   RateAppointmentData,
 } from '../appointment-rate/appointment-rate.component';
-
+import jsPDF from 'jspdf';
 
 
 @Component({
   selector: 'app-appointment-actions',
   imports: [SvgIconComponent, NgClass],
   templateUrl: './appointment-actions.component.html',
-  providers: [DatePipe, TitleCasePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentActionsComponent {
@@ -41,8 +40,6 @@ export class AppointmentActionsComponent {
   @Output() rateAppointment = new EventEmitter<RateAppointmentData>();
 
   private dialogService = inject(DialogService);
-  private datePipe = inject(DatePipe);
-  private titleCase = inject(TitleCasePipe);
   private router = inject(Router);
 
   cancelAppointmentHandler = (): void => {
@@ -119,21 +116,19 @@ export class AppointmentActionsComponent {
 
   completedInformHandler = (): void => {
     this.dialogService.openGeneric(AppointmentInformDialogComponent, {
-      title: 'Diagnóstico',
-      subtitle: `Este informe contiene el diagnóstico proporcionado por la/el especialista
+      title: 'Resumen',
+      subtitle: `Este informe contiene el resumen proporcionado por la/el especialista
        ${this.appointment.specialistFirstName} ${
         this.appointment.specialistLastName
       }, correspondiente al turno de ${
         this.appointment.specialty.name
       } llevado a cabo el día 
        ${
-         this.datePipe.transform(this.appointment.date, 'd') +
+        this.appointment.date.getDate() +
+           ' del mes ' +
+            (this.appointment.date.getMonth() + 1) +
            ' de ' +
-           this.titleCase.transform(
-             this.datePipe.transform(this.appointment.date, 'MMMM')
-           ) +
-           ' de ' +
-           this.datePipe.transform(this.appointment.date, 'y') || ''
+           this.appointment.date.getFullYear() || ''
        }.
        `,
       icon: 'diagnosis',
@@ -154,7 +149,7 @@ export class AppointmentActionsComponent {
 
   medicalRecordHandler = (): void => {
     this.router.navigate([
-      `/dashboard/user-medical-record/${this.appointment.clientId}`,
+      `/dashboard/user-record/${this.appointment.clientId}`,
     ]);
   };
 
@@ -176,19 +171,19 @@ export class AppointmentActionsComponent {
   };
 
   downloadPdfHandler = (): void => {
-    /*const doc = new jsPDF();
+    const doc = new jsPDF();
     const appointment = this.appointment;
     const statusLabel = APPOINTMENT_STATUS_LABELS.get(appointment.status) || appointment.status;
 
     // Titles
     doc.setFontSize(20);
-    doc.text('Vital Avellaneda', 105, 25, { align: 'center' });
+    doc.text('Barber Shop', 105, 25, { align: 'center' });
     doc.setFontSize(16);
     doc.text('Comprobante de Turno', 105, 35, { align: 'center' });
 
     // Description
     const currentDate = new Date().toLocaleDateString('es-AR');
-    const preamble = `Este comprobante de turno fue generado desde el sitio web oficial de Vital Avellaneda, el día ${currentDate}.`;
+    const preamble = `Este comprobante de turno fue generado desde el sitio web oficial de Barber Shop, el día ${currentDate}.`;
     doc.setFontSize(10);
     doc.text(preamble, 105, 45, { align: 'center' });
 
@@ -198,21 +193,20 @@ export class AppointmentActionsComponent {
     y = this.generatePdfLine(doc, y, 'ID del Turno:', appointment.id);
     y = this.generatePdfLine(doc, y + 10, 'Cliente:', `${appointment.clientFirstName} ${appointment.clientLastName}`);
     y = this.generatePdfLine(doc, y + 10, 'Especialista:', `${appointment.specialistFirstName} ${appointment.specialistLastName}`);
-    y = this.generatePdfLine(doc, y + 10, 'Especialidad:', appointment.specialty.name);
-    y = this.generatePdfLine(doc, y + 10, 'Fecha:', this.datePipe.transform(appointment.date, 'dd/MM/yyyy') || '');
-    y = this.generatePdfLine(doc, y + 10, 'Hora:', this.datePipe.transform(appointment.date, 'HH:mm') + ' hs.' || '');
+    y = this.generatePdfLine(doc, y + 10, 'Servicio:', appointment.specialty.name);
+    y = this.generatePdfLine(doc, y + 10, 'Fecha:', appointment.date.toLocaleDateString() || '');
+    y = this.generatePdfLine(doc, y + 10, 'Hora:', appointment.date.toLocaleTimeString() + '' || '');
     y = this.generatePdfLine(doc, y + 10, 'Estado:', statusLabel);
 
     // Advice
     doc.setFontSize(10);
     doc.setTextColor(100);
-    const notice = 'Se le recomienda tanto al cliente como al especialista llegar 15 minutos antes de cada sesión. En el Portal de Vital Avellaneda se puede revisar esta información, gestionar el estado del turno y más.';
+    const notice = 'Se le recomienda tanto al cliente como al especialista llegar 15 minutos antes de cada sesión. En el Portal de Barber Shop se puede revisar esta información, gestionar el estado del turno y más.';
     const splitNotice = doc.splitTextToSize(notice, 170);
     doc.text(splitNotice, 20, y + 20);
 
     // Save
     doc.save(`turno-${appointment.id}.pdf`);
-    */
   };
 
   private generatePdfLine(
@@ -232,7 +226,7 @@ export class AppointmentActionsComponent {
 
     const medicalRecordAction = {
       handler: this.medicalRecordHandler,
-      label: 'Ver Historia Clínica',
+      label: 'Ver Historia ',
       icon: 'medicalInformation',
     };
 

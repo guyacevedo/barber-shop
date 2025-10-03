@@ -159,7 +159,7 @@ export class AppointmentFacade {
       );
       this._viewedClientAppointments.set(appointments);
     } catch (err: any) {
-      this._error.set(err.message || 'Error al obtener la historia clínica.');
+      this._error.set(err.message || 'Error al obtener la historia del cliente.');
     } finally {
       this._loading.set(false);
     }

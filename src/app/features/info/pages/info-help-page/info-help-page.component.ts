@@ -30,7 +30,7 @@ export class InfoHelpPageComponent {
     {
       question: '¿Cómo gestiono un turno?',
       answer:
-        'Para cancelar o verificar el estado y la información de un turno, ingresá al portal y hacé clic en "Mis Turnos", buscá tu turno y listo. Allí tendrás las opciones para cancelarlo, calificarlo o ver el diagnóstico escrito por el especialista.',
+        'Para cancelar o verificar el estado y la información de un turno, ingresá al portal y hacé clic en "Mis Turnos", buscá tu turno y listo. Allí tendrás las opciones para cancelarlo, calificarlo o ver el resumen escrito por el especialista.',
     },
     {
       question: '¿Cómo accedo a mi historia?',

@@ -8,9 +8,13 @@
   --color-bs-primary: #0e6ad7;
   --color-bs-secondary: #cbf1f7;
   --color-bs-third: #12326c;
+
   --color-lightblue-primary: #f5f9ff;
   --color-lightblue-secondary: #deebff;
   --color-lightblue-third: #6292fa;
+
+  --color-red-primary: #e81513;
+  --color-red-secondary: #feeded;
 
   /* Spacing */
   --spacing-home-page: 75rem;

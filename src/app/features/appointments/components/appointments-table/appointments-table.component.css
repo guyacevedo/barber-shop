@@ -4,11 +4,11 @@
 }
 
 .completed {
-  background-color: var(--color-green-500);
-  color: var(--color-green-800)
+  background-color: var(--color-green-200);
+  color: var(--color-green-900)
 }
 
 .canceled {
-  background-color: var(--color-red-500);
-  color: var(--color-red-900);
+  background-color: var(--color-red-secondary);
+  color: var(--color-red-primary);
 }

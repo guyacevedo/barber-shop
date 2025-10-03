@@ -4,26 +4,26 @@ import {
   computed,
   inject,
   signal,
+  OnInit,
 } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
-import { AppointmentFacade } from '../../../appointments/appointment.facade';
 import { AuthFacade } from '../../../auth/auth.facade';
+import { UserFacade } from '../../../auth/user.facade';
+import { Client } from '../../../../core/models';
 import { RouterLink } from '@angular/router';
-import { Appointment } from '../../../../core/models/appointment.model';
 
 type SortDirection = 'asc' | 'desc' | 'none';
 
 @Component({
-  selector: 'app-appointments-table',
+  selector: 'app-clients-table',
   imports: [SvgIconComponent, RouterLink],
-  templateUrl: './appointments-table.component.html',
-  styleUrl: './appointments-table.component.css',
+  templateUrl: './clients-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppointmentsTableComponent {
+export class ClientsTableComponent implements OnInit {
   readonly authFacade = inject(AuthFacade);
-  readonly appointmentFacade = inject(AppointmentFacade);
-  readonly appointments = this.appointmentFacade.appointments;
+  readonly userFacade = inject(UserFacade);
+  readonly clients = this.userFacade.clients;
 
   // Pagination Signals
   readonly itemsPerPage = signal(6);
@@ -35,30 +35,17 @@ export class AppointmentsTableComponent {
     direction: 'none',
   });
 
-  readonly sortedAppointments = computed(() => {
-    const appointments = [...this.appointments()];
+  readonly sortedClients = computed(() => {
+    const clients = [...this.clients()];
     const config = this.sortConfig();
-    const userRole = this.authFacade.user()?.role;
 
     if (config.direction === 'none' || !config.key) {
-      return appointments;
+      return clients;
     }
 
-    const getKeyValue = (appointment: Appointment, key: string) => {
-      if (key === 'lastName') {
-        return userRole === 'client'
-          ? appointment.specialistLastName
-          : appointment.clientLastName;
-      }
-      if (key === 'specialty.name') {
-        return appointment.specialty.name;
-      }
-      return appointment[key as keyof Appointment];
-    };
-
-    appointments.sort((a, b) => {
-      const valA = getKeyValue(a, config.key);
-      const valB = getKeyValue(b, config.key);
+    clients.sort((a, b) => {
+      const valA = a[config.key as keyof Client];
+      const valB = b[config.key as keyof Client];
 
       const aValue = typeof valA === 'string' ? valA.toLowerCase() : valA;
       const bValue = typeof valB === 'string' ? valB.toLowerCase() : valB;
@@ -72,15 +59,15 @@ export class AppointmentsTableComponent {
       return 0;
     });
 
-    return appointments;
+    return clients;
   });
 
   readonly totalPages = computed(() => {
-    return Math.ceil(this.sortedAppointments().length / this.itemsPerPage());
+    return Math.ceil(this.sortedClients().length / this.itemsPerPage());
   });
 
-  readonly displayedAppointments = computed(() => {
-    const sorted = this.sortedAppointments();
+  readonly displayedClients = computed(() => {
+    const sorted = this.sortedClients();
     const startIndex = (this.currentPage() - 1) * this.itemsPerPage();
     const endIndex = startIndex + this.itemsPerPage();
     return sorted.slice(startIndex, endIndex);
@@ -121,12 +108,19 @@ export class AppointmentsTableComponent {
   });
 
   readonly loading = signal(false);
+  readonly error = this.userFacade.error;
   private lastLoadedUserId: string | null = null;
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    this.loadClients();
+  }
+
+  async loadClients(): Promise<void> {
     const currentUser = this.authFacade.user();
+    if (!currentUser) return;
+
     if (
-      this.appointmentFacade.appointments().length > 0 ||
+      this.userFacade.clients().length > 0 ||
       currentUser?.id === this.lastLoadedUserId
     ) {
       return;
@@ -137,11 +131,15 @@ export class AppointmentsTableComponent {
     const minLoaderTimePromise = new Promise((resolve) =>
       setTimeout(resolve, 1800)
     );
-    const dataFetchPromise = this.appointmentFacade.loadUserAppointments();
+    const dataFetchPromise = this.userFacade.loadClientsForSpecialist(
+      currentUser.id
+    );
 
     try {
       await Promise.all([dataFetchPromise, minLoaderTimePromise]);
       this.lastLoadedUserId = currentUser?.id ?? null;
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading.set(false);
     }

@@ -18,7 +18,6 @@ import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 export interface CompleteAppointmentData {
   details: string;
-  prescriptions: string;
   anotations: string | undefined;
   height: string | number | null;
   weight: string | number | null;
@@ -58,7 +57,6 @@ export class CompleteAppointmentDialogComponent implements IDialog, OnInit, Afte
   ngOnInit(): void {
     this.form = this.fb.group({
       details: ['', [Validators.required, Validators.minLength(12)]],
-      prescriptions: ['', [Validators.required, Validators.minLength(12)]],
       anotations: [''],
       height: [''],
       weight: [''],

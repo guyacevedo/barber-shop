@@ -9,8 +9,8 @@
     class="w-full bg-white border border-bs-third py-2 pl-2 rounded placeholder:text-gray-500 placeholder:text-sm focus:outline focus:shadow-bs-third shadow" />
 
   @if (showErrors && errorMessages.length > 0) {
-  <ul class="absolute -bottom-7 p-0.5 bg-red-300 w-full rounded">
-    <li class="flex flex-wrap justify-start items-center text-sm text-red-950 font-medium pl-1 gap-1">
+  <ul class="absolute -bottom-7 p-0.5 bg-red-secondary w-full rounded">
+    <li class="flex flex-wrap justify-start items-center text-sm text-red-primary font-medium pl-1 gap-1">
       <app-svg-icon icon="error" size="18px"></app-svg-icon>
       {{ errorMessages[0] }}
     </li>

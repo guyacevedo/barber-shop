@@ -143,14 +143,14 @@ export class UserSubmenuComponent {
         title: 'Cerrar Sesión',
         message: '¿Seguro de salir de tu cuenta?',
         confirmText: 'Cerrar Sesión',
-        confirmTextColor: 'text-red-900',
-        confirmTextBgColor: 'bg-red-100',
-        confirmTextBgColorHover: 'hover:bg-red-300/90',
-        confirmTextBgColorActive: 'active:bg-red-900/70',
+        confirmTextColor: 'text-red-primary',
+        confirmTextBgColor: 'bg-red-secondary',
+        confirmTextBgColorHover: 'hover:bg-red-secondary/90',
+        confirmTextBgColorActive: 'active:bg-red-primary/70',
         cancelText: 'Cancelar',
         icon: 'logout',
-        iconColor: 'text-red-900',
-        iconBgColor: 'bg-red-100',
+        iconColor: 'text-red-primary',
+        iconBgColor: 'bg-red-secondary',
       })
       .subscribe(async (result) => {
         if (result) {

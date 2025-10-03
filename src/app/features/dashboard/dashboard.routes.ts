@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { roleGuard } from '../../core/guards/role.guard';
 import { UserRoles } from '../../core/enums';
+import { idGuard } from '../../core/guards/id.guard';
+import { recordGuard } from '../../core/guards/record.guard';
 
 export const DASHBOARD_ROUTES: Routes = [
   // Authenticated users with Client role
@@ -36,6 +38,30 @@ export const DASHBOARD_ROUTES: Routes = [
     loadComponent: () =>
       import('./pages/appointment-list-page/appointment-list-page.component').then(
         (m) => m.AppointmentListPageComponent
+      ),
+  },
+  {
+    path: 'appointments-manage/:id',
+    canActivate: [roleGuard([UserRoles.CLIENT, UserRoles.SPECIALIST]), idGuard],
+    loadComponent: () =>
+      import('./pages/appointment-manage-page/appointment-manage-page.component').then(
+        (m) => m.AppointmentManagePageComponent
+      ),
+  },
+  {
+    path: 'user-record/:id',
+    canActivate: [roleGuard([UserRoles.CLIENT, UserRoles.SPECIALIST]), recordGuard],
+    loadComponent: () =>
+      import('./pages/user-record-page/user-record-page.component').then(
+        (m) => m.UserMedicalRecordPageComponent
+      ),
+  },
+  {
+    path: 'clients-list',
+    canActivate: [roleGuard([UserRoles.SPECIALIST])],
+    loadComponent: () =>
+      import('./pages/client-list-page/client-list-page.component').then(
+        (m) => m.ClientListPageComponent
       ),
   },
   // Authenticated users

@@ -12,7 +12,7 @@ export const INFO_PAGES_DATA: InfoPage[] = [
       <p class="mb-4 text-pretty">Creemos firmemente en la importancia de una <strong>relación de confianza y respeto mutuo</strong> entre el cliente y el profesional. Por ello, cada miembro de nuestro equipo trabaja incansablemente para fortalecer ese vínculo, garantizando un <strong>ambiente seguro, acogedor y profesional</strong> en cada visita.</p>
       <h3 class="text-xl font-semibold mt-6 mb-3">Nuestros Valores Fundamentales</h3>
       <ul class="list-disc pl-5 mb-4 space-y-2">
-        <li><strong>Excelencia estetica:</strong> Nos comprometemos a buscar la perfección en cada diagnóstico, tratamiento y procedimiento. Nuestro equipo se somete a formación continua para estar a la vanguardia de los avances en barbería.</li>
+        <li><strong>Excelencia estetica:</strong> Nos comprometemos a buscar la perfección en cada cita, tratamiento y procedimiento. Nuestro equipo se somete a formación continua para estar a la vanguardia de los avances en barbería.</li>
         <li><strong>Empatía y Trato Humano:</strong> Entendemos que detrás de cada cliente hay una historia. Nos esforzamos por escuchar, comprender y ponernos en el lugar de quienes confían en nosotros, ofreciendo un trato cercano y compasivo.</li>
         <li><strong>Innovación y Tecnología:</strong> Invertimos constantemente en la adquisición de nuevas tecnologías diagnósticas y de barbería para ofrecer soluciones más eficaces, seguras y menos invasivas.</li>
         <li><strong>Integridad y Transparencia:</strong> Actuamos con la máxima honestidad y ética profesional. Todas nuestras recomendaciones y decisiones se basan en el mejor interés del cliente, comunicado de forma clara y transparente.</li>

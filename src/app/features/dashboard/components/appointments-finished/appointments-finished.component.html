@@ -1,0 +1,92 @@
+<div class="flex flex-wrap justify-center items-center mt-2 mb-1 gap-1.5">
+  <app-svg-icon class="text-bs-primary" size="32px" icon="assignmentCompleted"></app-svg-icon>
+  <h3 class="font-semibold text-bs-primary xs:text-2xl text-xl text-center">Últimos turnos completados</h3>
+  @if (finishedAppointments().length > 0) {
+    <a routerLink="/dashboard/appointments-list" 
+      class="ml-2 underline underline-offset-1 pt-1
+        text-bs-third font-medium xs:text-base text-sm text-center">
+      Ver todos
+    </a>
+  }
+</div>
+<div
+  class="flex flex-wrap justify-center items-center bg-lightblue-primary/20
+  rounded-3xl p-4 px-12 gap-5 border border-bs-primary/20 shadow">
+
+  @if (loading()) {
+    <div class="flex flex-col justify-center items-center xl:w-255 lg:w-165 min-h-32
+     rounded-4xl overflow-hidden">
+      <div class="animate-spin inline-block size-10 border-4 border-t-transparent
+     text-bs-third rounded-full" role="status" aria-label="loading"></div>
+      <span class="text-center font-medium xs:text-2xl text-xl mt-4">Cargando turnos...</span>
+    </div>
+    } @else if (appointmentFacade.error()) {
+    <div class="flex flex-col justify-center items-center w-full h-32
+     rounded-4xl overflow-hidden">
+      <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
+      <p class="text-center font-medium xs:text-xl text-lg text-red-primary">Hubo un error al cargar los turnos.</p>
+      <p class="text-sm text-gray-500">{{ appointmentFacade.error() }}</p>
+      <button 
+        (click)="appointmentFacade.loadUserAppointments()"
+        class="cursor-pointer underline underline-offset-1
+         mt-7 text-bs-third active:text-bs-third/90">
+        Reintentar
+      </button>
+    </div>
+  } @else {
+    @for (apt of displayedFinishedAppointments(); track apt.id) {
+      <div class="relative flex flex-col justify-center items-center xs:w-80 xs:h-32 w-full
+      bg-lightblue-primary border-1 border-bs-primary shadow rounded-4xl">
+      
+        <div class="flex flex-col justify-center xs:items-start items-center px-3 py-2.5 gap-1.5 xs:text-base text-sm">
+          <div class="flex xxs:flex-row flex-col font-medium flex-wrap xs:justify-start justify-center
+          xs:items-end items-center gap-1.5 text-bs-third px-4 text-center text-pretty">
+            <app-svg-icon 
+              size="26px"
+              [icon]="apt.status === 'completed' ? 'eventAvailable' : 'eventBusy'"
+            ></app-svg-icon>
+            @if (apt.status === 'completed') {
+              <span class="text-pretty text-center">
+                {{ apt.date.getDate() }} del mes {{ apt.date.getMonth() + 1 }} de {{ apt.date.getFullYear() }}
+              </span>
+            } @else {
+              <span class="text-pretty text-center">
+                Cancelado
+              </span>
+            }
+          </div>
+          <div class="flex xxs:flex-row flex-col flex-wrap font-medium xs:justify-start
+           justify-center items-center gap-1.5 text-bs-third px-4 w-full">
+            <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
+            <span>{{ apt.specialty.name }}</span>
+          </div>
+        </div>
+    
+        <a
+          [routerLink]="['/dashboard/appointments-manage', apt.id]"
+          class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
+          xs:px-12 p-6 xs:w-auto py-1 mb-3 xs:text-lg text-base font-medium transition duration-300 gap-3
+          bg-bs-third text-lightblue-primary hover:bg-bs-third/90 active:bg-bs-third/80">
+          <app-svg-icon size="24px" icon="assignment"></app-svg-icon>
+          Ver Detalle
+        </a>
+      </div>
+    } @empty {
+      <div class="flex flex-col justify-center items-center
+        xl:w-255 lg:w-165 min-h-32 rounded-4xl overflow-hidden">
+        <app-svg-icon icon="clear" size="82px" class="text-bs-third/70"></app-svg-icon>
+        <p class="text-center font-medium xs:text-2xl text-xl">No tenés turnos completados.</p>
+      </div>
+    }
+
+    <!-- @if (finishedAppointments().length > 3) {
+      <button 
+        class="cursor-pointer flex flex-wrap gap-3
+         justify-center items-center w-full text-xl p-2 rounded-2xl font-medium transition
+         bg-bs-primary/40 text-bs-secondary hover:bg-bs-primary/30 active:bg-bs-primary/20">
+          <app-svg-icon icon="list"></app-svg-icon>
+          Ver todos
+      </button>
+    } -->
+  }
+</div>

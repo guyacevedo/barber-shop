@@ -2,13 +2,15 @@ import { Injectable, inject, signal } from '@angular/core';
 import { USER_REPOSITORY } from '../../core/interfaces/user.repository.token';
 import { Client, Specialist, UserBase } from '../../core/models';
 import { AuthFacade } from './auth.facade';
+import { AppointmentFacade } from '../appointments/appointment.facade';
+import { AppointmentStatus } from '../../core/enums';
 
 
 @Injectable({ providedIn: 'root' })
 export class UserFacade {
   private userService = inject(USER_REPOSITORY);
   private authFacade = inject(AuthFacade);
-
+  private appointmentFacade = inject(AppointmentFacade);
 
   // Private signals (source of truth)
   private _saving = signal(false);
@@ -106,13 +108,13 @@ export class UserFacade {
     this._saving.set(true);
     this._error.set(null);
     try {
-      /*const appointments =
+      const appointments =
         await this.appointmentFacade.getSpecialistAppointmentsByStatus(
           specialistId,
           [AppointmentStatus.PENDING, AppointmentStatus.COMPLETED]
-        );*/
+        );
 
-      const clientIds:any = [];//[...new Set(appointments.map((a) => a.clientId))];
+      const clientIds:any = [...new Set(appointments.map((a) => a.clientId))];
 
       if (clientIds.length > 0) {
         const clients = await this.userService.getUsersByIds(clientIds);

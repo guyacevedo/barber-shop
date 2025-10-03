@@ -68,7 +68,6 @@ export class FirebaseAppointmentService implements AppointmentRepository {
       orderBy('date', 'asc')
     );
     const snapshot = await getDocs(q);
-    console.info(snapshot)
     return snapshot.docs.map((doc) => {
       const data = doc.data();
       return {
@@ -96,7 +95,6 @@ export class FirebaseAppointmentService implements AppointmentRepository {
       orderBy('date', 'desc')
     );
     const snapshot = await getDocs(q);
-
     return snapshot.docs.map(doc => {
       const data = doc.data();
       return {

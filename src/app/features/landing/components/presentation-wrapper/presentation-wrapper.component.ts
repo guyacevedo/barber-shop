@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class PresentationWrapperComponent {
   srcImage: string = 'images/presentation.webp';
-  altImage: string = 'Foto de la Clínica por fuera';
+  altImage: string = 'Foto de la  por fuera';
   sectionText: string = 'Acerca de Nuestra Compañia';
   titleFirstLine: string = 'Barber Shop';
   titleSecondLine: string = '10 Años De Experiencia';

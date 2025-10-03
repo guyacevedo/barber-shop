@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AllowedScore, Appointment, Rating } from '../../../../core/models';
-import { DatePipe, TitleCasePipe } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
 @Component({
@@ -8,7 +7,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
   imports: [SvgIconComponent],
   templateUrl: './appointment-info.component.html',
   styleUrl: './appointment-info.component.css',
-  providers: [DatePipe, TitleCasePipe],
+  providers: [],
 })
 export class AppointmentInfoComponent implements OnChanges {
   @Input({ required: true }) appointment!: Appointment;
@@ -18,7 +17,7 @@ export class AppointmentInfoComponent implements OnChanges {
   rating: Rating | null = null;
   stars: AllowedScore[] = [1, 2, 3, 4, 5];
 
-  constructor(private datePipe: DatePipe, private titleCase: TitleCasePipe) {}
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['appointment'] && this.appointment) {
@@ -31,19 +30,11 @@ export class AppointmentInfoComponent implements OnChanges {
 
     data.push({
       label: 'Fecha: ',
-      value:
-        this.datePipe.transform(this.appointment.date, 'd') +
-          ' de ' +
-          this.titleCase.transform(
-            this.datePipe.transform(this.appointment.date, 'MMMM')
-          ) +
-          ' de ' +
-          this.datePipe.transform(this.appointment.date, 'y') || '',
+      value: this.appointment.date.toLocaleDateString()
     });
     data.push({
       label: 'Horario: ',
-      value:
-        this.datePipe.transform(this.appointment.date, 'HH:mm') + ' hs.' || '',
+      value: this.appointment.date.toLocaleTimeString()
     });
     data.push({
       label: 'Especialidad: ',
@@ -65,15 +56,8 @@ export class AppointmentInfoComponent implements OnChanges {
     });
     data.push({
       label: 'Fecha de Solicitud: ',
-      value:
-        this.datePipe.transform(this.appointment.creationDate, 'd') +
-          ' de ' +
-          this.titleCase.transform(
-            this.datePipe.transform(this.appointment.creationDate, 'MMMM')
-          ) +
-          ' de ' +
-          this.datePipe.transform(this.appointment.creationDate, 'y') || '',
-    });
+      value: this.appointment.creationDate.toLocaleString()
+     });
 
     if (this.appointment.rating) {
       this.rating = this.appointment.rating;

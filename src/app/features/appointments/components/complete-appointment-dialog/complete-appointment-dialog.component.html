@@ -41,33 +41,10 @@
             class="w-full min-h-12 xs:max-h-34 max-h-37 px-3 py-2 border border-gray-300 field-sizing-content
             rounded-md shadow-sm placeholder:text-gray-400 focus:outline-none
            focus:ring-bs-primary focus:border-bs-primary xs:text-sm text-xs"
-            placeholder="Completar con el detalle general del diagnóstico."
+            placeholder="Completar con el detalle general del resumen."
           ></textarea>
           <div class="text-xs text-gray-500 text-right">
             {{ form.value['details'].length }}/255
-          </div>
-        </div>
-
-        <!-- Prescriptions Input -->
-        <div class="mb-2">
-          <label
-            class="block xs:text-sm text-xs font-medium text-gray-700 mb-1"
-            for="prescriptions"
-            >Recetas e indicaciones
-            <span class="text-bs-primary ml-1">(Obligatorio)</span>
-          </label>
-          <textarea
-            id="prescriptions"
-            formControlName="prescriptions"
-            rows="3"
-            maxLength="255"
-            class="w-full min-h-12 xs:max-h-34 max-h-37 px-3 py-2 border border-gray-300 field-sizing-content
-            rounded-md shadow-sm placeholder:text-gray-400 focus:outline-none
-           focus:ring-bs-primary focus:border-bs-primary xs:text-sm text-xs"
-            placeholder="Completar con recetas, medicamentos e indicaciones."
-          ></textarea>
-          <div class="text-xs text-gray-500 text-right">
-            {{ form.value['prescriptions'].length }}/255
           </div>
         </div>
 

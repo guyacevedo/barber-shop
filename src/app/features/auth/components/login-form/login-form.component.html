@@ -25,7 +25,7 @@
           <!-- Error Text -->
           @if (submitted && loginError()) {
           <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center
-             bg-red-300 rounded text-red-950 text-medium text-pretty">
+             bg-red-secondary rounded text-red-primary text-medium text-pretty">
             <app-svg-icon icon="error" size="20px"></app-svg-icon>
             {{ loginError() }}
           </div>

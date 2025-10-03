@@ -1,0 +1,167 @@
+<div
+  class="flex flex-wrap justify-start items-center mt-8
+  w-full p-4 gap-5 border border-bs-primary rounded-3xl shadow-md">
+  @if (loading()) {
+  <div class="flex flex-col justify-center items-center w-full min-h-60
+   rounded-4xl overflow-hidden">
+    <div class="animate-spin inline-block size-10 border-4 border-t-transparent
+     text-bs-third rounded-full" role="status" aria-label="loading"></div>
+    <span class="text-center font-medium text-2xl mt-4">Cargando pacientes...</span>
+  </div>
+  } @else if (error()) {
+  <div class="flex flex-col justify-center items-center w-full h-58
+   rounded-4xl overflow-hidden">
+    <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
+    <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los pacientes.</p>
+    <p class="text-sm text-gray-500">{{ error() }}</p>
+    <button 
+      (click)="loadClients()"
+      class="cursor-pointer underline underline-offset-1
+       mt-7 text-bs-third active:text-bs-third/90">
+      Reintentar
+    </button>
+  </div>
+  } @else {
+    <div class="w-full">
+      
+      <!-- Table Header -->
+      <div class="hidden lg:grid grid-cols-5 gap-4 p-4 border-b
+       border-gray-400 font-bold text-bs-primary select-none">
+        <div (click)="applySort('lastName')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+          <span>Paciente</span>
+          @if (sortConfig().key === 'lastName' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('dni')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+          <span>DNI</span>
+          @if (sortConfig().key === 'dni' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('email')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+          <span>Correo</span>
+          @if (sortConfig().key === 'email' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('phone')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+          <span>Teléfono</span>
+          @if (sortConfig().key === 'phone' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div>Acciones</div>
+      </div>
+
+      <!-- Table Body -->
+      <div class="min-h-[390px]">
+        @for (client of displayedClients(); track client.id) {
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center p-3.5
+          border-b border-gray-200 hover:bg-gray-50 transition">
+            
+          
+          
+          
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-bs-primary">Paciente</span>
+              {{ client.firstName }} {{ client.lastName }}
+          </div>
+
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-bs-primary">DNI</span>
+            {{ client.dni }}
+          </div>
+
+          <div class="text-center lg:text-left truncate">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-bs-primary">Correo</span>
+            {{ client.email }}
+          </div>
+
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-bs-primary">Teléfono</span>
+            {{ client.phone || 'Sin especificar' }}
+          </div>
+
+            <div class="text-center lg:text-left">
+              <a 
+                [routerLink]="['/dashboard/user-record', client.id]"
+                class="text-bs-third hover:underline inline-flex gap-1">
+                Ver Historia Clínica
+                <app-svg-icon icon="link"></app-svg-icon>
+              </a>
+            </div>
+          </div>
+        } @empty {
+          <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
+            <app-svg-icon icon="clear" size="82px" class="text-bs-third/70"></app-svg-icon>
+            <p class="text-center font-medium text-2xl">No se encontraron pacientes.</p>
+            <button 
+              (click)="loadClients()" 
+              class="cursor-pointer underline underline-offset-1
+              mt-7 text-bs-third active:text-bs-third/90">
+                Volver a cargar
+            </button>
+          </div>
+        }
+      </div>
+
+      <span class="ml-4 font-medium">Pacientes totales: {{ clients().length }}</span>
+
+      <!-- Pagination -->
+      @if (pages().length > 1) {
+        <div class="flex justify-center items-center mt-2 mb-2 gap-2">
+          
+          <!-- Previous Button -->
+          <button
+            (click)="previousPage()"
+            [disabled]="currentPage() === 1"
+            [attr.aria-label]="'Página anterior'"
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-bs-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowLeft" size="22px"></app-svg-icon>
+          </button>
+
+          <!-- Page Numbers -->
+          @for (page of pages(); track $index) {
+            @if (page === '...') {
+              <span class="flex items-center justify-center size-9 rounded-full
+               text-bs-gray-dark select-none">
+                ...
+              </span>
+            } @else {
+              <button
+                (click)="goToPage(+page)"
+                [class.bg-bs-third]="currentPage() === page"
+                [class.text-white]="currentPage() === page"
+                [class.bg-gray-100]="currentPage() !== page"
+                [class.text-gray-500]="currentPage() !== page"
+                [class.hover:bg-gray-200]="currentPage() !== page"
+                [class.active:bg-gray-300]="currentPage() !== page"
+                [attr.aria-label]="'Página ' + page"
+                class="cursor-pointer flex items-center justify-center size-9 rounded-full
+                font-medium transition"
+              >
+                {{ page }}
+              </button>
+            }
+          }
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+            [attr.aria-label]="'Página siguiente'"
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-bs-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowRight" size="22px"></app-svg-icon>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

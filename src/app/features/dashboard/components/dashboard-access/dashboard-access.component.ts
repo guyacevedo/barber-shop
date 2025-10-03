@@ -20,7 +20,7 @@ export class DashboardAccessComponent {
     },
     {
       title: 'Ver Historia',
-      routerLink: `/dashboard/user-medical-record/${this.authFacade.user()?.id}`,
+      routerLink: `/dashboard/user-record/${this.authFacade.user()?.id}`,
       icon: 'medicalInformation',
     },
     {
