@@ -15,7 +15,7 @@
         this.isSpecialist() ? "Cliente" : "Especialista"
         }}</strong>,
 
-      <button class="cursor-pointer p-1 bg-bs-third text-white hover:underline hover:underline-offset-2"
+      <button class="cursor-pointer p-1 bg-bs-third/10 text-bs-third font-bold hover:underline hover:underline-offset-2"
         (click)="toggleMode()">
         hacé clic acá.
       </button>
@@ -54,7 +54,7 @@
                 Se recomienda seleccionar una foto a modo de retrato y con buena iluminación.
               </p>
               <p class="sm:block hidden text-sm font-normal pl-1.5 text-pretty">
-                Elegir una foto no es obligatorio: La idea es hacer más humano el manejo de Barber Shop.
+                Elegir una foto no es obligatorio: La idea es hacer más humano el manejo de BarberApp.
               </p>
             </div>
           </div>
@@ -141,7 +141,7 @@
         <!-- Information Text -->
         } @else {
         <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center w-full
-          bg-bs-third rounded text-lightblue-primary text-pretty">
+          bg-bs-third/10 rounded text-bs-third  text-pretty">
           <app-svg-icon icon="info" size="20px"></app-svg-icon>
           Completa cada campo con tus datos.
         </div>
@@ -175,7 +175,7 @@
 
         <p class="xs:w-80 w-full font-medium text-center text-pretty">
           ¿Ya tenes una cuenta?
-          <a class="text-bs-third font-semibold underline underline-offset-2" routerLink="/auth/login">
+          <a class="text-bs-third hover:text-bs-primary  font-semibold underline underline-offset-2" routerLink="/auth/login">
             Iniciá Sesión
           </a>
         </p>

@@ -1,22 +1,18 @@
-<div class="flex lg:max-w-home-page max-w-184 mt-10 rounded-2xl mx-6
-   bg-lightblue-primary">
+<div
+  class="flex max-w-full 2xl:max-w-home-page mt-8 bg-bs-primary/5 px-4 py-8 lg:px-32 lg:py-16 2xl:p-0 2xl:rounded-2xl">
   <!-- Image -->
-  <div class="w-0 md:w-90 lg:w-144 bg-cover bg-center rounded-l-2xl" [ngStyle]="{
+  <div class="w-0 lg:w-156 bg-cover bg-center rounded-4xl 2xl:rounded-none 2xl:rounded-l-2xl" [ngStyle]="{
       'background-image':
-      'linear-gradient(90deg, #0e68d73b, #0e68d73b), url(' + srcImage+ ')'
+      'linear-gradient(90deg, rgba(106,76,52,0.16), rgba(100,79,54,0.26)), url(' + srcImage+ ')'
     }">
     <span class="sr-only">{{ altImage }}</span>
   </div>
 
   <!-- Content -->
-  <div class="flex flex-col md:pt-18 pt-4 md:pb-18 pb-0 lg:px-16 sm:px-12 px-2 w-full text-center">
-    <p class="text-sm text-bs-primary font-semibold sm:mb-2 mb-4">{{ sectionText }}</p>
-    <h2 class="text-4xl md:text-5xl text-bs-third font-semibold tracking-tight">
+  <div class="flex flex-col md:pt-18 pt-4 md:pb-18 pb-0 lg:px-16 sm:px-12 px-2 w-full">
+    <h2 class="text-4xl md:text-5xl text-bs-third font-semibold tracking-tight not-md:text-center">
       {{ titleFirstLine }}
     </h2>
-    <h3 class="text-2xl md:text-1xl text-bs-third font-semibold tracking-tight">
-      {{ titleSecondLine }}
-    </h3>
     <p class="mt-5 lg:text-lg text-pretty px-3 text-justify">{{ description }}</p>
 
     <div class="flex flex-col justify-center sm:items-start items-center px-3">
@@ -26,15 +22,16 @@
         }
       </ul>
     </div>
-    <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 mt-7 mb-4 gap-2">
-      <a [routerLink]="anchorLink" class="text-white py-3 sm:px-5  w-full font-semibold bg-bs-third
-       hover:bg-bs-primary mx-auto transition-colors rounded-sm">
-        {{anchorText }}
-      </a>
-      <a [routerLink]="specialistsLink" class="text-white py-3 sm:px-5 w-full font-semibold bg-bs-third
-       hover:bg-bs-primary mx-auto transition-colors rounded-sm">
-        {{specialistsText }}
-      </a>
+    <div class="mt-8 space-y-4">
+      @for (data of data; track data) {
+      <div class="flex items-start gap-4">
+        <app-svg-icon [icon]="data.icon" size="62px" class="text-bs-third"></app-svg-icon>
+        <div>
+          <h3 class="text-base font-bold text-black">{{data.title}}</h3>
+          <p class="mt-1 text-sm text-black/60">{{data.description}}</p>
+        </div>
+      </div>
+      }
     </div>
   </div>
 </div>

@@ -44,7 +44,7 @@
 
 /* Custom Lazy Loading Animation */
 .swiper-slide .relative {
-  background-color: #002468;
+  background-color: var(--color-lightblue-third);
 }
 :host ::ng-deep .swiper-lazy-preloader {
   display: block;

@@ -37,7 +37,7 @@ export class MainCarouselComponent implements AfterViewInit {
         mobile: '/images/carousel/carousel-1-mobile.webp',
         desktop: '/images/carousel/carousel-1.webp',
       },
-      title: 'Bienvenido a Barber Shop',
+      title: 'Bienvenido a BarberApp',
       description:
         'Somos una Barbería digital y presencial al servicio de tu Bienestar. Hacemos nuestro trabajo de forma humana y segura.',
       buttonText: 'Conocé más',
@@ -83,7 +83,7 @@ export class MainCarouselComponent implements AfterViewInit {
       },
       title: 'Nuestros Profesionales',
       description:
-        'Conocé al equipo de especialistas que hace posible Barber Shop. Calidez humana en cada consulta.',
+        'Conocé al equipo de especialistas que hace posible BarberApp. Calidez humana en cada consulta.',
       buttonText: 'Ver más',
       buttonLink: '/info/nuestros-profesionales',
     },

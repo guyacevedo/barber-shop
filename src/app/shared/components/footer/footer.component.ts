@@ -1,20 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
 import { SvgIconComponent } from "../../icons/svg-icon.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [SvgIconComponent],
+  imports: [SvgIconComponent, RouterLink],
   templateUrl: './footer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
-
-  // Visual info
-  readonly email = APP_SHARED_INFO.contact.email;
-  readonly phone = APP_SHARED_INFO.contact.phone;
-  readonly firstLocation = APP_SHARED_INFO.location.main;
-  readonly secondLocation = APP_SHARED_INFO.location.secondary;
 
   // Href
   readonly facebook = APP_SHARED_INFO.social.facebook;

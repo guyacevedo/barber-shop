@@ -1,14 +1,8 @@
-<div
-  class="w-full h-full p-2 py-6 lg:py-2
-  flex sm:flex-row flex-col lg:justify-center items-center sm:gap-5 gap-2
-  {{ border }}"
->
-  <div class="ml-0.5">
-    <ng-content select="[icon]"></ng-content>
-  </div>
-
-  <div class="flex flex-col">
-    <h2 class="xs:text-xl font-semibold sm:text-start text-center">{{ title }}</h2>
+  <div class="flex flex-col items-center rounded-xl bg-white p-8 min-h-80 lg:min-h-70 text-center shadow-sm transition-shadow hover:shadow-lg
+  {{ border }}">
+    <div class="flex h-24 w-24 items-center justify-center rounded-full bg-bs-primary/20 text-bs-primary">
+      <ng-content select="[icon]"></ng-content>
+    </div>
+    <h3 class="mt-6 text-lg font-bold text-black">{{ title }}</h3>
     <ng-content select="[description]"></ng-content>
   </div>
-</div>

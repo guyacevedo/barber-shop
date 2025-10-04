@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from "../../icons/svg-icon.component";
 
 
@@ -21,6 +21,7 @@ interface NavbarContent {
 export class NavbarComponent {
   public isMenuOpen = signal(false);
   public isAnimating = signal(false);
+  public router = inject(Router);
 
    navItems = [
      {

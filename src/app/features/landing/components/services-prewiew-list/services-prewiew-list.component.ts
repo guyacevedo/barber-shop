@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ServicesPrewiewListComponent {
   title = 'Los mejores servicios de barbería a tu disposición';
+  subTitle = 'Calidad y estilo en cada corte';
 
   //private readonly newsFacade = inject(NewsFacade);
   private readonly elementRef = inject(ElementRef);

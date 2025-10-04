@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class InformationCardComponent {
   @Input() title: string = '';
-  @Input() border: string = '';
+  @Input() border: string = 'border border-gray-200';
 }

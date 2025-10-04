@@ -177,13 +177,13 @@ export class AppointmentActionsComponent {
 
     // Titles
     doc.setFontSize(20);
-    doc.text('Barber Shop', 105, 25, { align: 'center' });
+    doc.text('BarberApp', 105, 25, { align: 'center' });
     doc.setFontSize(16);
     doc.text('Comprobante de Turno', 105, 35, { align: 'center' });
 
     // Description
     const currentDate = new Date().toLocaleDateString('es-AR');
-    const preamble = `Este comprobante de turno fue generado desde el sitio web oficial de Barber Shop, el día ${currentDate}.`;
+    const preamble = `Este comprobante de turno fue generado desde el sitio web oficial de BarberApp, el día ${currentDate}.`;
     doc.setFontSize(10);
     doc.text(preamble, 105, 45, { align: 'center' });
 
@@ -201,7 +201,7 @@ export class AppointmentActionsComponent {
     // Advice
     doc.setFontSize(10);
     doc.setTextColor(100);
-    const notice = 'Se le recomienda tanto al cliente como al especialista llegar 15 minutos antes de cada sesión. En el Portal de Barber Shop se puede revisar esta información, gestionar el estado del turno y más.';
+    const notice = 'Se le recomienda tanto al cliente como al especialista llegar 15 minutos antes de cada sesión. En el Portal de BarberApp se puede revisar esta información, gestionar el estado del turno y más.';
     const splitNotice = doc.splitTextToSize(notice, 170);
     doc.text(splitNotice, 20, y + 20);
 

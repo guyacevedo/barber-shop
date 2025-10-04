@@ -5,16 +5,16 @@
 /* Custom Tailwind Utilities */
 @theme {
   /* Colors */
-  --color-bs-primary: #0e6ad7;
-  --color-bs-secondary: #cbf1f7;
-  --color-bs-third: #12326c;
+  --color-bs-primary: #d45211;
+  --color-bs-secondary: #ffd9ae;
+  --color-bs-third: #221610;
 
   --color-lightblue-primary: #f5f9ff;
   --color-lightblue-secondary: #deebff;
-  --color-lightblue-third: #6292fa;
+  --color-lightblue-third: #ffc693;
 
   --color-red-primary: #e81513;
-  --color-red-secondary: #feeded;
+  --color-red-secondary: #fdd8c7;
 
   /* Spacing */
   --spacing-home-page: 75rem;

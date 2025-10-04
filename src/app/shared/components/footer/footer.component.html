@@ -1,110 +1,42 @@
-<footer class="bg-bs-primary w-full px-6">
-  <div class="mx-auto max-w-home-page py-4 lg:py-8">
-    <div class="lg:flex lg:justify-between">
-      <!-- Logo -->
-      <div class="md:mb-10 mb-6 flex items-center justify-center h-full sm:w-64 w-56 lg:mr-6 lg:mx-0 mx-auto">
-        <h1 class="text-3xl font-semibold text-white">Barber Shop</h1>
-      </div>
-
-      <!-- Links -->
-      <div class="flex flex-col sm:flex-row flex-wrap not-lg:justify-center items-center gap-6">
-        <div class="flex md:flex-row flex-col gap-4">
-          <!-- Contact -->
-          <div>
-            <h2 class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center">
-              CONTACTO
-            </h2>
-            <address class="not-italic">
-              <ul class="text-lightblue-secondary font-medium">
-                <li class="mb-2 max-w-80">
-                  <a href="tel:+570000000000" class="hover:underline" rel="noopener noreferrer nofollow"><span
-                      class="font-semibold">Teléfono</span> <br />
-                    {{ phone }}</a>
-                </li>
-                <li class="max-w-52">
-                  <a [href]="'mailto:'+email" class="hover:underline" rel="noopener noreferrer nofollow"><span
-                      class="font-semibold">Correo</span> <br />
-                    {{ email }}</a>
-                </li>
-              </ul>
-            </address>
-          </div>
-          <!-- Locations -->
-          <div>
-            <h2 class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center">
-              DIRECCIONES
-            </h2>
-            <address class="not-italic">
-              <ul class="text-lightblue-secondary font-medium">
-                <li class="mb-2 max-w-152">
-                  <a href="https://www.google.com/maps/search/?api=1&query={{firstLocation}}" target="_blank"
-                    rel="noopener noreferrer nofollow" class="hover:underline">{{ firstLocation }}</a>
-                </li>
-                <li class="max-w-152">
-                  <a href="https://www.google.com/maps/search/?api=1&query={{secondLocation}}" target="_blank"
-                    rel="noopener noreferrer nofollow" class="hover:underline">{{ secondLocation }}</a>
-                </li>
-              </ul>
-            </address>
-          </div>
-          <!-- Legal -->
-          <div>
-            <h2 class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center">
-              LEGALES
-            </h2>
-            <ul class="text-lightblue-secondary font-medium">
-              <li class="mb-2 max-w-52">
-                <a routerLink="/info/politica-de-privacidad" class="hover:underline cursor-pointer">
-                  Política de Privacidad
-                </a>
-              </li>
-              <li class="max-w-52">
-                <a routerLink="/info/terminos-y-condiciones" class="hover:underline cursor-pointer">
-                  Términos y Condiciones
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer's footer -->
-    <!-- Description -->
-    <hr class="my-6 border-lightblue-secondary sm:mx-auto lg:my-8" />
-    <div class="sm:flex sm:items-center sm:justify-between justify-center text-center">
-      <div class="flex flex-col sm:flex-row sm:gap-2 gap-0.5 sm:mb-0 mb-2">
-        <span class="text-sm text-bs-secondary text-pretty">
-          © 2025 Barber Shop™
-        </span>
-        <a [href]="github" class="text-sm text-bs-secondary text-pretty hover:underline cursor-pointer"
+<footer class="border-t border-bs-primary/10 bg-lightblue-primary">
+  <div class="mx-auto max-w-home-page px-4 py-8 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+      <div class="flex-1 text-center md:text-left">
+        <p class="text-sm text-black/60">© 2025 BarberApp. Todos los derechos reservados.</p>
+        <a [href]="github" class="text-sm text-black/60 text-pretty hover:underline cursor-pointer"
           rel="noopener noreferrer nofollow">
           Hecho por Guy Acevedo.
         </a>
       </div>
-
-      <!-- Socials -->
-      <div class="flex mt-4 justify-center sm:mt-0">
-        <a [href]="facebook" class="text-lightblue-secondary hover:text-white transition"
-          rel="noopener noreferrer nofollow">
-          <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Página de Facebook</span>
-        </a>
-        <a [href]="instagram" class="text-lightblue-secondary hover:text-white ms-5 transition"
-          rel="noopener noreferrer nofollow">
-          <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Cuenta de Instagram</span>
-        </a>
-        <a [href]="twitter" class="text-lightblue-secondary hover:text-white ms-5 transition"
-          rel="noopener noreferrer nofollow">
-          <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Cuenta de X</span>
-        </a>
-        <a [href]="tiktok" class="text-lightblue-secondary hover:text-white ms-5 transition"
-          rel="noopener noreferrer nofollow">
-          <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Cuenta de TikTok</span>
-        </a>
+      <div>
+        <div class="flex items-center gap-6">
+          <a class="text-sm text-black/60 transition-colors hover:text-black hover:underline cursor-pointer"
+            routerLink="/info/politica-de-privacidad">Política de privacidad</a>
+          <a class="text-sm text-black/60 transition-colors hover:text-black hover:underline cursor-pointer"
+            routerLink="/info/terminos-y-condiciones">Términos de servicio</a>
+        </div>
+        <div class="flex mt-2 justify-center">
+          <a [href]="facebook" class="text-bs-primary hover:text-bs-third transition"
+            rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Página de Facebook</span>
+          </a>
+          <a [href]="instagram" class="text-bs-primary hover:text-bs-third ms-5 transition"
+            rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Cuenta de Instagram</span>
+          </a>
+          <a [href]="twitter" class="text-bs-primary hover:text-bs-third ms-5 transition"
+            rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Cuenta de X</span>
+          </a>
+          <a [href]="tiktok" class="text-bs-primary hover:text-bs-third ms-5 transition"
+            rel="noopener noreferrer nofollow">
+            <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Cuenta de TikTok</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
