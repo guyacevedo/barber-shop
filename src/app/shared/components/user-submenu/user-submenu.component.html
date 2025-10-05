@@ -1,21 +1,13 @@
 <div class="relative">
-  <button class="user-submenu-button cursor-pointer flex flex-wrap justify-center items-center
-    rounded-full gap-2 md:px-4 md:py-2 md:min-w-48 p-2
-  md:bg-bs-third/60 text-bs-white font-medium
-  md:hover:bg-bs-third md:active:bg-bs-third/80 focus:bg-bs-third bg-bs-third
-    transition duration-300"
+  <button class="user-submenu-button cursor-pointer flex flex-wrap justify-center items-center transition duration-300 hover:shadow hover:opacity-80 active:opacity-80 rounded-full"
     aria-label="Abrir submenú de usuario"
     (click)="toggleDropdown($event)">
         
-    <div class="text-bs-primary bg-lightblue-primary md:hidden flex justify-center items-center
-      outline-2 outline-lightblue-secondary/40 size-9 rounded-full shadow overflow-hidden img-fade-container">
+    <div class="flex justify-center items-center size-12 rounded-full shadow  overflow-hidden img-fade-container">
       @defer (when profilePictureUrl()) {
         <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
       }
     </div>
-        
-    <app-svg-icon icon="user" size="34px" class="hidden md:block"></app-svg-icon>
-    <span class="hidden md:block">{{ name }}</span>
   </button>
 
   @if (isDropdownVisible()) {

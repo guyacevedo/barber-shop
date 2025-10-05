@@ -61,14 +61,9 @@
     </div>
   </div>
   } @empty {
-  <div class="flex flex-col justify-center items-center
-        xl:w-270 lg:w-180 lg:px-0 xxs:px-10 w-full min-h-60 rounded-4xl overflow-hidden">
+  <div class="flex flex-col justify-center items-center lg:px-0 xxs:px-10 w-full min-h-60 rounded-4xl overflow-hidden">
     <app-svg-icon icon="clear" size="82px" class="text-bs-third/70"></app-svg-icon>
     <p class="text-center font-medium xs:text-2xl text-xl">No tenés turnos pendientes.</p>
-    <button (click)="appointmentFacade.loadUserAppointments()" class="cursor-pointer underline underline-offset-1
-          mt-7 text-bs-third active:text-bs-third/90 xs:text-base text-sm">
-      Volver a cargar
-    </button>
   </div>
   }
   }

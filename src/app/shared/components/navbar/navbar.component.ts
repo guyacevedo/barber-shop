@@ -35,8 +35,8 @@ export class NavbarComponent {
       href: '/info/quienes-somos',
     },
     {
-      title: 'Especialidades y Servicios',
-      ariaLabel: 'Abrir Sección de Especialidades y Servicios',
+      title: 'Servicios',
+      ariaLabel: 'Abrir Sección de Servicios',
       href: '/info/especialidades-y-servicios',
     },
     {

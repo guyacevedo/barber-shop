@@ -37,6 +37,10 @@ export class UserInformationCardComponent {
   private readonly cloudinaryService = inject(CloudinaryService);
   private readonly elementRef = inject(ElementRef);
   readonly user: Signal<UserBase | null> = this.authFacade.user;
+  readonly titleInfo = computed(()=> {
+    const role = this.user()?.role;
+    return role === 'specialist' ? 'Especialidades' : 'Información adicional' 
+  })
 
   constructor() {
     // Effect to handle image loading animations

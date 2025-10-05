@@ -6,13 +6,13 @@
    rounded-4xl overflow-hidden">
     <div class="animate-spin inline-block size-10 border-4 border-t-transparent
      text-bs-third rounded-full" role="status" aria-label="loading"></div>
-    <span class="text-center font-medium text-2xl mt-4">Cargando pacientes...</span>
+    <span class="text-center font-medium text-2xl mt-4">Cargando clientes...</span>
   </div>
   } @else if (error()) {
   <div class="flex flex-col justify-center items-center w-full h-58
    rounded-4xl overflow-hidden">
     <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
-    <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los pacientes.</p>
+    <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los clientes.</p>
     <p class="text-sm text-gray-500">{{ error() }}</p>
     <button 
       (click)="loadClients()"
@@ -95,7 +95,7 @@
         } @empty {
           <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
             <app-svg-icon icon="clear" size="82px" class="text-bs-third/70"></app-svg-icon>
-            <p class="text-center font-medium text-2xl">No se encontraron pacientes.</p>
+            <p class="text-center font-medium text-2xl">No se encontraron clientes.</p>
             <button 
               (click)="loadClients()" 
               class="cursor-pointer underline underline-offset-1
@@ -106,7 +106,7 @@
         }
       </div>
 
-      <span class="ml-4 font-medium">Pacientes totales: {{ clients().length }}</span>
+      <span class="ml-4 font-medium">Clientes totales: {{ clients().length }}</span>
 
       <!-- Pagination -->
       @if (pages().length > 1) {

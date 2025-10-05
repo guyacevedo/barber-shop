@@ -1,5 +1,16 @@
 <div class="space-y-8">
-  <div class="bg-lightblue-primary rounded-lg p-6 border border-bs-primary/20">
+  <div class="bg-lightblue-primary rounded-lg p-6 border border-bs-primary/20 user-card relative">
+      <!-- Edit Button -->
+  <button 
+    routerLink="/dashboard/profile/edit"
+    class="hidden edit-btn opacity-0 cursor-pointer lg:flex justify-center
+    absolute right-2 items-center text-bs-primary
+    rounded-2xl w-fit px-3 py-1.5 
+    gap-0.5 transition-all duration-300 focus:opacity-100
+    hover:bg-bs-primary/10 active:bg-bs-primary/10">
+      <app-svg-icon icon="edit" size="22px"></app-svg-icon>
+      Editar
+  </button>
     <h3 class="text-2xl font-bold text-stone-900 mb-6">Mis Datos</h3>
     <div class="space-y-4">
       @for (item of personalData; track item.label) {
@@ -11,7 +22,9 @@
     </div>
   </div>
   <div class="bg-lightblue-primary  rounded-lg p-6 border border-bs-primary/20 ">
-    <h3 class="text-2xl font-bold text-stone-900 mb-6">Información</h3>
+    <h3 class="text-2xl font-bold text-stone-900 mb-6">
+      {{titleInfo()}}
+    </h3>
     <div class="flex flex-wrap gap-2">
       @for (item of infoData; track item.value) {
       <span
@@ -28,9 +41,4 @@
     <p class="text-lg font-bold text-stone-900 ">{{specialistAvailability}}</p>
   </div>
   }
-  <button routerLink="/dashboard/profile/edit"
-    class="w-full flex items-center justify-center rounded-lg bg-bs-primary px-6 py-3 text-base font-bold text-white shadow-lg hover:bg-bs-primary/90 transition-all">
-    <app-svg-icon icon="edit" size="36px"></app-svg-icon>
-    Editar Información
-  </button>
 </div>

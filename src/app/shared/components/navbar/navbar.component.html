@@ -1,10 +1,9 @@
-<nav class="flex items-center xs:justify-between
-   justify-start lg:pl-10 size-full bg-lightblue-primary">
+<nav class="flex items-center justify-between lg:px-8 px-4 size-full bg-lightblue-primary">
   <!-- Hamburger Menu (Mobile) -->
-  <div class="lg:hidden pl-4">
+  <div class="lg:hidden">
     <button (click)="toggleMenu()" tabindex="0" class="cursor-pointer z-50 mr-2 relative rounded-xl
-        hover:bg-bs-third/60 shadow active:bg-bs-third/30
-        transition-colors duration-300 p-2 outline outline-blue-700" aria-label="Abrir menú"
+          hover:bg-bs-primary shadow active:bg-bs-primary text-bs-primary hover:text-white 
+        transition-colors duration-300 p-2 outline outline-bs-primary" aria-label="Abrir menú"
       [attr.aria-expanded]="isMenuOpen()" aria-controls="mobile-menu-panel">
       @if (!isMenuOpen()) {
       <app-svg-icon icon="menu" size="34px"></app-svg-icon>
@@ -25,8 +24,9 @@
       @for (item of navItems; track item.title) {
       <li class="w-full">
         <a (click)="toggleMenu()" class="flex w-full items-center justify-start p-4 text-md text-left font-medium rounded-lg
-            hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500"
-          [routerLink]="item.href" [attr.tabindex]="isMenuOpen() ? 0 : -1" [attr.aria-label]="item.ariaLabel">
+            hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500
+             {{item.href === router.url ? 'bg-bs-primary/20 shadow text-bs-primary ': ''}}" [routerLink]="item.href"
+          [attr.tabindex]="isMenuOpen() ? 0 : -1" [attr.aria-label]="item.ariaLabel">
           {{ item.title }}
         </a>
       </li>
@@ -77,8 +77,7 @@
         © 2025 Barber Shop™
       </span>
       <a [href]="github" [attr.tabindex]="isMenuOpen() ? 0 : -1"
-        class="text-sm text-black/60 text-pretty hover:underline cursor-pointe"
-        rel="noopener noreferrer nofollow">
+        class="text-sm text-black/60 text-pretty hover:underline cursor-pointe" rel="noopener noreferrer nofollow">
         Hecho por Guy Acevedo.
       </a>
     </div>
@@ -89,14 +88,8 @@
     class="lg:hidden fixed xs:top-22 top-18 inset-x-0 bottom-0 bg-black/70 z-10"></div>
 
   <!-- Logo -->
-  <a routerLink="/home" class="flex text-center p-1" aria-label="Ir a la página de inicio de BarberApp">
+  <a routerLink="/home" class="hidden xs:flex text-center p-1" aria-label="Ir a la página de inicio de BarberApp">
     <h1 class="text-3xl font-semibold text-black object-contain w-56">💈BarberApp</h1>
-  </a>
-
-  <!-- Portal Link -->
-  <a routerLink="/auth/login" aria-label="Acceso al Portal"
-    class="hidden lg:hidden xs:flex px-4 py-2 text-sm mr-4 font-bold bg-bs-primary text-white rounded-lg hover:opacity-60 transition-colors">
-    Acceder
   </a>
 
   <!-- Desktop Navigation -->
@@ -105,18 +98,27 @@
     <li>
       <a class="flex items-center justify-center p-1.5 xl:p-2 mr-2 xl:mr-4 rounded-lg text-md 
           hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500
-          {{item.href === router.url ? 'bg-bs-primary/20 shadow text-bs-primary ': ''}}"
-        [routerLink]="item.href" tabindex="0" [attr.aria-label]="item.ariaLabel">
+          {{item.href === router.url ? 'bg-bs-primary/20 shadow text-bs-primary ': ''}}" [routerLink]="item.href"
+        tabindex="0" [attr.aria-label]="item.ariaLabel">
         {{ item.title}}
       </a>
     </li>
     }
-    <li>
-      <a routerLink="/auth/login" aria-label="Acceso al Portal"
-        class="px-4 py-3 text-sm font-bold bg-bs-primary text-white rounded-lg hover:opacity-90 hover:shadow transition-colors duration-500 
-        {{router.url === '/auth/login'? 'hidden': ''}}">
-        Acceder
-      </a>
-    </li>
+
   </ul>
+
+  <div class="2xl:ml-18 ml-4 flex justify-between  gap-2 items-center">
+    <!-- Portal Link -->
+    <a routerLink="/auth/login" aria-label="Acceso al Portal" class="flex flex-row  justify-center items-center py-2 px-4 gap-2  font-bold bg-bs-primary text-white rounded-lg hover:opacity-90 hover:shadow transition-colors duration-500 
+        {{router.url === '/auth/login'? 'hidden': ''}}">
+      <app-svg-icon icon="login" size="28px" class="text-white"></app-svg-icon>
+      <span class="text-sm text-white not-xl:hidden">Acceder</span>
+    </a>
+    <!-- Help Button -->
+    <a routerLink="/info/user/help" class="flex flex-row justify-center items-center rounded-lg py-2 px-4 gap-2 bg-bs-third/40 hover:bg-bs-third/60 hover:shadow active:bg-bs-third/30 transition duration-300
+      {{router.url === '/info/user/help'? 'hidden': ''}}">
+      <app-svg-icon icon="help" size="28px" class="text-white"></app-svg-icon>
+      <span class="text-sm text-white not-xl:hidden">Ayuda</span>
+    </a>
+  </div>
 </nav>

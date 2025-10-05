@@ -4,13 +4,13 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthFacade } from '../../../features/auth/auth.facade';
 import { UserSubmenuComponent } from '../user-submenu/user-submenu.component';
 import { UserRoles as R } from '../../../core/enums';
-import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { ROLE_LABELS } from '../../../core/enums/enum-labels';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
+import { SvgIconComponent } from "../../icons/svg-icon.component";
 
 @Component({
   selector: 'app-header-dashboard',
@@ -19,10 +19,11 @@ import { APP_SHARED_INFO } from '../../../core/config/app-info';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderDashboardComponent {
-  private authFacade = inject(AuthFacade);
+  readonly authFacade = inject(AuthFacade);
   readonly user = this.authFacade.user;
   public isMenuOpen = signal(false);
   public isAnimating = signal(false);
+  router = inject(Router);
 
   get roleLabel(): string {
     const role = this.user()?.role;
@@ -43,26 +44,45 @@ export class HeaderDashboardComponent {
     return 'user';
   }
 
-  navItems = [
+
+  public navItemsClient = [
     {
-      title: 'Quiénes Somos',
-      ariaLabel: 'Abrir Sección sobre quiénes somos',
-      href: '/info/quienes-somos',
+      title: 'Inicio',
+      ariaLabel: 'Abrir dashboard',
+      href: `/dashboard/${this.authFacade.user()?.role}`,
     },
     {
-      title: 'Especialidades y Servicios',
-      ariaLabel: 'Abrir Sección de Especialidades y Servicios',
-      href: '/info/especialidades-y-servicios',
+      title: 'Solicitar nuevo Turno',
+      href: '/dashboard/request-appointment',
+      ariaLabel: 'Abrir Sección para solicitar un nuevo turno',
     },
     {
-      title: 'Nuestros Profesionales',
-      ariaLabel: 'Abrir Sección de Nuestros Profesionales',
-      href: '/info/nuestros-profesionales',
+      title: 'Ver Historia',
+      href: `/dashboard/user-record/${this.authFacade.user()?.id}`,
+      ariaLabel: 'Abrir Sección para ver el historial del cliente',
     },
     {
-      title: 'Novedades',
-      ariaLabel: 'Abrir Sección de Novedades',
-      href: '/news',
+      title: 'Lista de Turnos',
+      href: '/dashboard/appointments-list',
+      ariaLabel: 'Abrir Sección para listado de turnos',
+    },
+  ];
+
+  public navItemsSpecialist = [
+    {
+      title: 'Inicio',
+      ariaLabel: 'Abrir dashboard',
+      href: `/dashboard/${this.authFacade.user()?.role}`,
+    },
+    {
+      title: 'Clientes',
+      href: '/dashboard/clients-list',
+      ariaLabel: 'Abrir Sección para listado de clientes',
+    },
+    {
+      title: 'Lista de Turnos',
+      href: '/dashboard/appointments-list',
+      ariaLabel: 'Abrir Sección para listado de turnos',
     },
   ];
 
