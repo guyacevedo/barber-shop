@@ -11,11 +11,10 @@ import { UserRoles as R } from '../../../core/enums';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { ROLE_LABELS } from '../../../core/enums/enum-labels';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-header-dashboard',
-  imports: [RouterLink, UserSubmenuComponent, SvgIconComponent, NgClass],
+  imports: [RouterLink, UserSubmenuComponent, SvgIconComponent],
   templateUrl: './header-dashboard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -103,6 +103,49 @@ export class UserInformationCardComponent {
     ];
   }
 
+  // Return specialist availability as string
+  get specialistAvailability() {
+    const user = this.user();
+
+    if (user?.role === 'specialist') {
+      const specialist = user as Specialist;
+      return AVAILABILITY_PRESETS_LABELS.get(specialist.availabilityName) ?? specialist.availabilityName
+    }
+    return null;
+  }
+
+  // Return info data as object array { value }
+  get infoData() {
+    const user = this.user();
+
+    // Client data
+    if (user?.role === 'client') {
+      const client = user as Client;
+      return [
+        {
+          value: client.height ? `${client.height} cm.` : 'Altura sin especificar',
+        },
+        {
+          value: client.weight ? `${client.weight} kg.` : 'Peso sin especificar',
+        },
+        // { label: 'Especificaciones', value: client.description || '' },
+      ];
+
+      // Specialist data
+    } else if (user?.role === 'specialist') {
+      const specialist = user as Specialist;
+      const data: any = [];
+      specialist.specialties.forEach(specialty => {
+        data.push({
+         value: specialty.name
+        });
+      });
+      return data;
+    }
+
+    return [];
+  }
+
   // Return custom data as object array { label, value }
   get customData() {
     const user = this.user();

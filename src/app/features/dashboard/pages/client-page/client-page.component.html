@@ -1,39 +1,19 @@
 @if (!user() || isCheckingAuth()) {
-  <app-splash></app-splash>
+<app-splash></app-splash>
 } @else {
-  <div class="flex flex-col justify-center items-center size-full">
-    <h1 class="lg:hidden block text-3xl md:text-4xl font-bold tracking-tight
-      text-bs-primary mb-3 px-12 text-center">
-      Portal para Clientes
-    </h1>
-    
-    <div class="flex 3xl:flex-row flex-col flex-wrap justify-center 3xl:items-start items-center 
-      h-full outline outline-lightblue-secondary/70 bg-bs-secondary/10 shadow
-      mx-4 px-3 rounded-xl gap-8 py-5">
-  
+<div class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <aside class="lg:col-span-1 not-lg:order-1">
       <!-- User Information Card -->
-      <div class="flex justify-center items-start w-fit h-full">
-        <app-user-information-card></app-user-information-card>
-      </div>
-
-        <!-- Appointments and Access options -->
-      <div class="flex-1 flex flex-col justify-start items-center gap-3">
-
-        <!-- Access Options -->
-        <div class="flex flex-col items-center w-full">
-          <app-dashboard-access></app-dashboard-access>
-        </div>
-
-         <!-- Pending Appointments Preview -->
-        <div class="flex flex-col items-center w-full">
-          <app-appointments-pending></app-appointments-pending>
-        </div>
-        
-        <!-- Finished Appointments Preview -->
-        <div class="flex flex-col items-center w-full">
-          <app-appointments-finished></app-appointments-finished>
-        </div>
+      <app-user-information-card></app-user-information-card>
+    </aside>
+    <div class="lg:col-span-2">
+      <div>
+        <!-- Appointments -->
+        <app-appointments-pending></app-appointments-pending>
+        <app-appointments-finished></app-appointments-finished>
       </div>
     </div>
   </div>
+</div>
 }
