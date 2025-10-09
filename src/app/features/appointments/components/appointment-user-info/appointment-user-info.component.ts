@@ -132,7 +132,7 @@ export class AppointmentUserInfoComponent implements OnInit {
       const specialist = user as Specialist;
       return [
         {
-          label: 'Especialidades: ',
+          label: 'Servicios: ',
           value: this.formatSpecialties(specialist.specialties),
         },
         {

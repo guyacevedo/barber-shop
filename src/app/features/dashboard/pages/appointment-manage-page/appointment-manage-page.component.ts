@@ -11,7 +11,6 @@ import { AppointmentFacade } from '../../../appointments/appointment.facade';
 import { AuthFacade } from '../../../auth/auth.facade';
 import { SplashComponent } from '../../../../shared/components/splash/splash.component';
 import { AppointmentInfoComponent } from '../../../appointments/components/appointment-info/appointment-info.component';
-import { AppointmentUserInfoComponent } from '../../../appointments/components/appointment-user-info/appointment-user-info.component';
 import { UserFacade } from '../../../auth/user.facade';
 import { Diagnosis, Client, Rating, UserBase } from '../../../../core/models';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
@@ -26,11 +25,10 @@ import { RateAppointmentData } from '../../../appointments/components/appointmen
   imports: [
     SplashComponent,
     AppointmentInfoComponent,
-    AppointmentUserInfoComponent,
     RouterLink,
     SvgIconComponent,
-    AppointmentActionsComponent,
-  ],
+    AppointmentActionsComponent
+],
   templateUrl: './appointment-manage-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

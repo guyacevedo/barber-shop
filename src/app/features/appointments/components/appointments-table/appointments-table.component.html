@@ -1,6 +1,5 @@
-<div 
-  class="flex flex-wrap justify-start items-center mt-8
-  w-full p-4 gap-5 border border-bs-primary rounded-3xl shadow-md">
+<div
+  class="flex flex-wrap justify-start items-center mt-8 w-full gap-5 lg:border border-lightblue-secondary rounded-lg lg:shadow-md">
   @if (loading()) {
   <div class="flex flex-col justify-center items-center w-full min-h-60
    rounded-4xl overflow-hidden">
@@ -14,161 +13,146 @@
     <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
     <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los turnos.</p>
     <p class="text-sm text-gray-500">{{ appointmentFacade.error() }}</p>
-    <button 
-      (click)="appointmentFacade.loadUserAppointments()"
-      class="cursor-pointer underline underline-offset-1
+    <button (click)="appointmentFacade.loadUserAppointments()" class="cursor-pointer underline underline-offset-1
        mt-7 text-bs-third active:text-bs-third/90">
       Reintentar
     </button>
   </div>
   } @else {
-    <div class="w-full">
-      
-      <!-- Table Header -->
-      <div class="hidden lg:grid grid-cols-5 gap-4 p-4 border-b
-       border-gray-400 font-bold text-bs-primary select-none">
-        <div (click)="applySort('specialty.name')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-primary">
-          <span>Especialidad</span>
-          @if (sortConfig().key === 'specialty.name' && sortConfig().direction !== 'none') {
-            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
-          }
-        </div>
-        <div (click)="applySort('lastName')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-primary">
-          <span>{{ authFacade.user()?.role === 'client' ? 'Especialista' : 'Cliente' }}</span>
-          @if (sortConfig().key === 'lastName' && sortConfig().direction !== 'none') {
-            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
-          }
-        </div>
-        <div (click)="applySort('date')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-primary">
-          <span>Fecha y Hora</span>
-          @if (sortConfig().key === 'date' && sortConfig().direction !== 'none') {
-            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
-          }
-        </div>
-        <div (click)="applySort('status')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-primary">
-          <span>Estado</span>
-          @if (sortConfig().key === 'status' && sortConfig().direction !== 'none') {
-            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
-          }
-        </div>
-        <div>Acciones</div>
-      </div>
+  <div class="w-full">
 
-      <!-- Table Body -->
-      <div class="min-h-[390px]">
-        @for (apt of displayedAppointments(); track apt.id) {
-          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center p-3.5
-          border-b border-gray-200 hover:bg-gray-50 transition">
-          
-          <div class="text-center lg:text-left">
-            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-bs-primary">Especialidad</span>
-            <span class="font-medium text-gray-800">{{ apt.specialty.name }}</span>
-          </div>
-          <div class="text-center lg:text-left">
-            <span class="font-bold sm:inline-block lg:hidden hidden mr-2 text-bs-primary">{{ authFacade.user()?.role === 'client' ? 'Especialista' : 'Cliente' }}</span>
-            {{ authFacade.user()?.role === 'client' ? 
-              (apt.specialistFirstName + ' ' + apt.specialistLastName) : 
-              (apt.clientFirstName + ' ' + apt.clientLastName) }}
-          </div>
-          <div class="text-center lg:text-left">
-            <span class="font-bold sm:inline-block lg:hidden hidden mr-2 text-bs-primary">Fecha y Hora</span>
-            {{ apt.date.toLocaleString() }}
-          </div>
-          <div class="text-center lg:text-left">
-            <span class="font-bold sm:inline-block lg:hidden hidden mr-2 text-bs-primary">Estado</span>
-            <span 
-              class="inline-block w-28 text-center px-4 py-2 rounded-full text-sm font-medium"
-              [class.pending]="apt.status === 'pending'"
-              [class.completed]="apt.status === 'completed'"
-              [class.canceled]="apt.status === 'canceled'"
-            >
-                @switch (apt.status) {
-                  @case ('pending') { Pendiente }
-                  @case ('completed') { Completado }
-                  @case ('canceled') { Cancelado }
-                  @default { Desconocido }
-                }
-            </span>
-          </div>
-          <div class="text-center lg:text-left">
-            <a 
-              [routerLink]="['/dashboard/appointments-manage', apt.id]"
-              class="text-bs-third hover:underline inline-flex gap-1">
-              Ver Detalle
-              <app-svg-icon icon="link"></app-svg-icon>
-            </a>
-          </div>
-          </div>
-        } @empty {
-          <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
-            <app-svg-icon icon="clear" size="82px" class="text-bs-third/70"></app-svg-icon>
-            <p class="text-center font-medium text-2xl">No se encontraron turnos.</p>
-            <button 
-              (click)="appointmentFacade.loadUserAppointments()" 
-              class="cursor-pointer underline underline-offset-1
-              mt-7 text-bs-third active:text-bs-third/90">
-                Volver a cargar
-            </button>
-          </div>
+    <!-- Table Header -->
+    <div
+      class="hidden lg:grid grid-cols-5 pl-4 py-4 border-b border-lightblue-secondary bg-lightblue-primary text-gray-500 font-bold select-none">
+      <div (click)="applySort('specialty.name')"
+        class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+        <span>Servicio</span>
+        @if (sortConfig().key === 'specialty.name' && sortConfig().direction !== 'none') {
+        <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'"
+          size="24px"></app-svg-icon>
         }
       </div>
+      <div (click)="applySort('lastName')"
+        class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+        <span>{{ authFacade.user()?.role === 'client' ? 'Especialista' : 'Cliente' }}</span>
+        @if (sortConfig().key === 'lastName' && sortConfig().direction !== 'none') {
+        <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'"
+          size="24px"></app-svg-icon>
+        }
+      </div>
+      <div (click)="applySort('date')" class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+        <span>Fecha y Hora</span>
+        @if (sortConfig().key === 'date' && sortConfig().direction !== 'none') {
+        <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'"
+          size="24px"></app-svg-icon>
+        }
+      </div>
+      <div (click)="applySort('status')"
+        class="flex items-center gap-1 cursor-pointer transition hover:text-bs-secondary">
+        <span>Estado</span>
+        @if (sortConfig().key === 'status' && sortConfig().direction !== 'none') {
+        <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'"
+          size="24px"></app-svg-icon>
+        }
+      </div>
+      <div>Acciones</div>
+    </div>
 
-      <span class="ml-4 font-medium">Turnos totales: {{ appointments().length }}</span>
+    <!-- Table Body -->
+    <div class="min-h-[390px] mb-4">
+      @for (apt of displayedAppointments(); track apt.id) {
+      <div
+        class="grid grid-cols-1 lg:grid-cols-5 not-lg:gap-2 items-center pt-3.5 lg:py-3.5 px-0 
+          border lg:border-b border-gray-200 hover:bg-gray-50 transition not-lg:mb-4 not-lg:rounded-2xl overflow-hidden">
 
-      <!-- Pagination -->
-      @if (pages().length) {
-        <div class="flex justify-center items-center mt-2 mb-2 gap-2">
-          
-          <!-- Previous Button -->
-          <button
-            (click)="previousPage()"
-            [disabled]="currentPage() === 1"
-            [attr.aria-label]="'Página anterior'"
-            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
-            text-bs-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
-            disabled:opacity-30 disabled:cursor-auto"
-          >
-            <app-svg-icon icon="arrowLeft" size="22px"></app-svg-icon>
-          </button>
-
-          <!-- Page Numbers -->
-          @for (page of pages(); track $index) {
-            @if (page === '...') {
-              <span class="flex items-center justify-center size-9 rounded-full
-               text-bs-gray-dark select-none">
-                ...
-              </span>
-            } @else {
-              <button
-                (click)="goToPage(+page)"
-                [class.bg-bs-third]="currentPage() === page"
-                [class.text-white]="currentPage() === page"
-                [class.bg-gray-100]="currentPage() !== page"
-                [class.text-gray-500]="currentPage() !== page"
-                [class.hover:bg-gray-200]="currentPage() !== page"
-                [class.active:bg-gray-300]="currentPage() !== page"
-                [attr.aria-label]="'Página ' + page"
-                class="cursor-pointer flex items-center justify-center size-9 rounded-full
-                font-medium transition"
-              >
-                {{ page }}
-              </button>
-            }
-          }
-
-          <!-- Next Button -->
-          <button
-            (click)="nextPage()"
-            [disabled]="currentPage() === totalPages()"
-            [attr.aria-label]="'Página siguiente'"
-            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
-            text-bs-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
-            disabled:opacity-30 disabled:cursor-auto"
-          >
-            <app-svg-icon icon="arrowRight" size="22px"></app-svg-icon>
-          </button>
+        <div class="text-left px-4">
+          <span class="font-bold sm:inline-block text lg:hidden mr-2 text-bs-primary">Servicio</span>
+          <span class="font-medium text-gray-800">{{ apt.specialty.name }}</span>
         </div>
+        <div class="text-left px-4">
+          <span class="font-bold sm:inline-block lg:hidden mr-2 text-bs-primary">{{ authFacade.user()?.role === 'client'
+            ? 'Especialista' : 'Cliente' }}</span>
+          {{ authFacade.user()?.role === 'client' ?
+          (apt.specialistFirstName + ' ' + apt.specialistLastName) :
+          (apt.clientFirstName + ' ' + apt.clientLastName) }}
+        </div>
+        <div class="text-left px-4">
+          <span class="font-bold sm:inline-block lg:hidden mr-2 text-bs-primary">Fecha y Hora</span>
+          {{ apt.date.toLocaleString() }}
+        </div>
+        <div class="text-right lg:text-left px-4">
+          <span class="inline-block w-28 text-center px-4 py-2 rounded-full text-sm font-medium"
+            [class.pending]="apt.status === 'pending'" [class.completed]="apt.status === 'completed'"
+            [class.canceled]="apt.status === 'canceled'">
+            @switch (apt.status) {
+            @case ('pending') { Pendiente }
+            @case ('completed') { Completado }
+            @case ('canceled') { Cancelado }
+            @default { Desconocido }
+            }
+          </span>
+        </div>
+        <div
+          class="text-center lg:text-left border-t border-t-lightblue-secondary lg:border-none not-lg:py-4 not-lg:bg-lightblue-primary">
+          <a [routerLink]="['/dashboard/appointments-manage', apt.id]"
+            class="text-bs-third hover:underline inline-flex gap-1">
+            Ver Detalle
+            <app-svg-icon icon="link"></app-svg-icon>
+          </a>
+        </div>
+      </div>
+      } @empty {
+      <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
+        <app-svg-icon icon="clear" size="82px" class="text-bs-third/70"></app-svg-icon>
+        <p class="text-center font-medium text-2xl">No se encontraron turnos.</p>
+        <button (click)="appointmentFacade.loadUserAppointments()" class="cursor-pointer underline underline-offset-1
+              mt-7 text-bs-third active:text-bs-third/90">
+          Volver a cargar
+        </button>
+      </div>
       }
     </div>
+
+    <span class="ml-6 font-medium">Turnos totales: {{ appointments().length }}</span>
+
+    <!-- Pagination -->
+    @if (pages().length) {
+    <div class="flex justify-center items-center mb-4 gap-2">
+
+      <!-- Previous Button -->
+      <button (click)="previousPage()" [disabled]="currentPage() === 1" [attr.aria-label]="'Página anterior'" class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-bs-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto">
+        <app-svg-icon icon="arrowLeft" size="22px"></app-svg-icon>
+      </button>
+
+      <!-- Page Numbers -->
+      @for (page of pages(); track $index) {
+      @if (page === '...') {
+      <span class="flex items-center justify-center size-9 rounded-full
+               text-bs-gray-dark select-none">
+        ...
+      </span>
+      } @else {
+      <button (click)="goToPage(+page)" [class.bg-bs-third]="currentPage() === page"
+        [class.text-white]="currentPage() === page" [class.bg-gray-100]="currentPage() !== page"
+        [class.text-gray-500]="currentPage() !== page" [class.hover:bg-gray-200]="currentPage() !== page"
+        [class.active:bg-gray-300]="currentPage() !== page" [attr.aria-label]="'Página ' + page" class="cursor-pointer flex items-center justify-center size-9 rounded-full
+                font-medium transition">
+        {{ page }}
+      </button>
+      }
+      }
+
+      <!-- Next Button -->
+      <button (click)="nextPage()" [disabled]="currentPage() === totalPages()" [attr.aria-label]="'Página siguiente'"
+        class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-bs-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto">
+        <app-svg-icon icon="arrowRight" size="22px"></app-svg-icon>
+      </button>
+    </div>
+    }
+  </div>
   }
 </div>

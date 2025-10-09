@@ -93,17 +93,15 @@ export class AppointmentActionsComponent {
   canceledInformHandler = (): void => {
     this.dialogService.openGeneric(AppointmentInformDialogComponent, {
       title: 'Turno Cancelado',
-      subtitle: `El turno fue cancelado por la/el ${
-        this.appointment.canceledBy === 'client' ? 'cliente' : 'especialista'
-      } ${
-        this.appointment.canceledBy === 'client'
+      subtitle: `El turno fue cancelado por la/el ${this.appointment.canceledBy === 'client' ? 'cliente' : 'especialista'
+        } ${this.appointment.canceledBy === 'client'
           ? this.appointment.clientFirstName +
-            ' ' +
-            this.appointment.clientLastName
+          ' ' +
+          this.appointment.clientLastName
           : this.appointment.specialistFirstName +
-            ' ' +
-            this.appointment.specialistLastName
-      }. El motivo de la cancelación se muestra a continuación en este informe.`,
+          ' ' +
+          this.appointment.specialistLastName
+        }. El motivo de la cancelación se muestra a continuación en este informe.`,
       icon: 'eventBusy',
       inform: [
         {
@@ -118,18 +116,15 @@ export class AppointmentActionsComponent {
     this.dialogService.openGeneric(AppointmentInformDialogComponent, {
       title: 'Resumen',
       subtitle: `Este informe contiene el resumen proporcionado por la/el especialista
-       ${this.appointment.specialistFirstName} ${
-        this.appointment.specialistLastName
-      }, correspondiente al turno de ${
-        this.appointment.specialty.name
-      } llevado a cabo el día 
-       ${
-        this.appointment.date.getDate() +
-           ' del mes ' +
-            (this.appointment.date.getMonth() + 1) +
-           ' de ' +
-           this.appointment.date.getFullYear() || ''
-       }.
+       ${this.appointment.specialistFirstName} ${this.appointment.specialistLastName
+        }, correspondiente al turno de ${this.appointment.specialty.name
+        } llevado a cabo el día 
+       ${this.appointment.date.getDate() +
+        ' del mes ' +
+        (this.appointment.date.getMonth() + 1) +
+        ' de ' +
+        this.appointment.date.getFullYear() || ''
+        }.
        `,
       icon: 'diagnosis',
       inform: [
@@ -244,6 +239,10 @@ export class AppointmentActionsComponent {
           handler: this.completedInformHandler,
           label: 'Ver Diagnóstico',
           icon: 'diagnosis',
+          textColor: 'text-white',
+          bgColor: 'bg-blue-600',
+          bgColorHover: 'hover:bg-blue-700',
+          bgColorActive: 'active:bg-blue-800'
         },
       ];
 
@@ -252,6 +251,10 @@ export class AppointmentActionsComponent {
           handler: this.rateAppointmentHandler,
           label: 'Calificar Atención',
           icon: 'star',
+          textColor: 'text-white',
+          bgColor: 'bg-yellow-600/70',
+          bgColorHover: 'hover:bg-yellow-600/80',
+          bgColorActive: 'active:bg-yellow-600/90'
         });
       }
     } else if (status === AppointmentStatus.CANCELED) {
@@ -260,6 +263,10 @@ export class AppointmentActionsComponent {
           handler: this.canceledInformHandler,
           label: 'Ver Detalle',
           icon: 'eventBusy',
+          textColor: 'text-white',
+          bgColor: 'bg-blue-600',
+          bgColorHover: 'hover:bg-blue-700',
+          bgColorActive: 'active:bg-blue-800'
         },
       ];
     } else if (status === AppointmentStatus.PENDING) {
@@ -281,6 +288,10 @@ export class AppointmentActionsComponent {
             handler: this.completeAppointmentHandler,
             label: 'Completar Turno',
             icon: 'eventAvailable',
+            textColor: 'text-white',
+            bgColor: 'bg-green-500/80',
+            bgColorHover: 'hover:bg-green-500/100',
+            bgColorActive: 'active:bg-green-500/90'
           },
           cancelAction,
         ];

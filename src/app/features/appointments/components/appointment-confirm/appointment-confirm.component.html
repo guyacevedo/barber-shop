@@ -1,53 +1,70 @@
 <div class="flex flex-wrap items-start justify-center mt-3
-gap-4 py-2 rounded shadow 2xl:max-h-86 2xl:h-78 overflow-x-auto">
+gap-4 py-2  overflow-x-auto">
   <div class="flex flex-col justify-center sm:items-start items-center sm:text-start
     text-center w-full sm:px-10 px-3">
     <!-- Information Title -->
     <div class="flex sm:flex-row flex-col gap-2 sm:justify-start justify-center items-center">
       <app-svg-icon icon="assignment" size="28px"></app-svg-icon>
-      <h3 class="sm:text-2xl text-xl font-semibold sm:text-start text-center">Información del Turno</h3>
+      <h3 class="sm:text-2xl text-xl font-semibold sm:text-start text-center">¡Estás a un paso de reservar!</h3>
     </div>
 
-    <hr class="text-bs-primary w-full" />
+    <hr class="text-bs-primary/20 w-full my-4" />
 
     <!-- Information Content -->
-    <div class="flex flex-col gap-1.5 mt-4">
-      <div class="flex gap-2 justify-start items-start">
-        <app-svg-icon icon="medicalService" size="26px"></app-svg-icon>
-        <p class="sm:text-lg text-base font-medium text-pretty">
-          Especialidad: <span class="font-normal">{{ specialty?.name }}</span>
-        </p>
+    <div class="grid sm:grid-cols-2  w-full gap-4">
+      <div class="flex items-center gap-4 ">
+        <div
+          class="flex-shrink-0 size-16 flex items-center justify-center bg-bs-primary/10 dark:bg-bs-primary/20 rounded-lg text-bs-primary">
+          <app-svg-icon icon="care" size="48px"></app-svg-icon>
+        </div>
+        <div>
+          <p class="font-bold text-xl">Servicio</p>
+          <p class="text-gray-600 font-semibold text-lg">{{ specialty?.name }}</p>
+        </div>
       </div>
-      <div class="flex gap-2 justify-start items-start">
-        <app-svg-icon icon="specialist" size="26px"></app-svg-icon>
-        <p class="sm:text-lg text-base font-medium text-pretty">
-          Especialista:
-          <span class="font-normal">{{ specialist?.firstName }} {{ specialist?.lastName }}</span>
-        </p>
+      <div class="flex items-center gap-4 ">
+        <div
+          class="flex-shrink-0 size-16 flex items-center justify-center bg-bs-primary/10 dark:bg-bs-primary/20 rounded-lg text-bs-primary">
+          @if (profilePictureUrl()) {
+          <div class="size-13 rounded-full  overflow-hidden mt-1">
+            <img [src]="profilePictureUrl()" alt="Foto de perfil">
+          </div>
+          } @else {
+          <app-svg-icon icon="face" size="48px"></app-svg-icon>
+          }
+        </div>
+        <div>
+          <p class="font-bold text-xl">Especialista</p>
+          <p class="text-gray-600 font-semibold text-lg">{{ specialist?.firstName }} {{ specialist?.lastName }}</p>
+        </div>
       </div>
-      <div class="flex gap-2 justify-start items-start">
-        <app-svg-icon icon="appointment" size="26px"></app-svg-icon>
-        <p class="sm:text-lg text-base font-medium text-pretty">
-          Fecha:
-          <span class="font-normal">{{
-            dateTime?.toLocaleDateString()
-            }}</span>
-        </p>
+      <div class="flex items-center gap-4 ">
+        <div
+          class="flex-shrink-0 size-16 flex items-center justify-center bg-bs-primary/10 dark:bg-bs-primary/20 rounded-lg text-bs-primary">
+          <app-svg-icon icon="appointment" size="48px"></app-svg-icon>
+        </div>
+        <div>
+          <p class="font-bold text-xl">Fecha</p>
+          <p class="text-gray-600 font-semibold text-lg">{{ dateTime?.toLocaleDateString()}}</p>
+        </div>
       </div>
-      <div class="flex gap-2 justify-start items-start">
-        <app-svg-icon icon="schedule" size="26px"></app-svg-icon>
-        <p class="sm:text-lg text-base font-medium text-pretty">
-          Horario:
-          <span class="font-normal">{{ dateTime?.toLocaleTimeString() }}</span>
-        </p>
+      <div class="flex items-center gap-4 ">
+        <div
+          class="flex-shrink-0 size-16 flex items-center justify-center bg-bs-primary/10 dark:bg-bs-primary/20 rounded-lg text-bs-primary">
+          <app-svg-icon icon="schedule" size="48px"></app-svg-icon>
+        </div>
+        <div>
+          <p class="font-bold text-xl">Horario</p>
+          <p class="text-gray-600 font-semibold text-lg">{{ dateTime?.toLocaleTimeString()}}</p>
+        </div>
       </div>
     </div>
 
     <!-- Detail -->
-    <div class="flex sm:flex-row flex-col sm:px-10 px-2 py-2 sm:justify-start
-       justify-center sm:items-start items-center mt-3 2xl:max-w-156
-       gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded">
-      <app-svg-icon class="h-full text-amber-900" icon="info" size="26px"></app-svg-icon>
+    <div class="flex sm:flex-row flex-col sm:px-4 px-2 py-4 sm:justify-start
+       justify-center sm:items-start items-center mt-8 w-full
+       gap-2 bg-bs-secondary text-black rounded-2xl">
+      <app-svg-icon class="h-full text-bs-third sm:block hidden" icon="info" size="40px"></app-svg-icon>
       <p class="h-full text-pretty w-full sm:text-sm text-xs">
         Revisá bien los datos antes de confirmar. Si hay algo mal, podés volver
         hacia atrás para ajustar tus preferencias. En caso de que esté todo

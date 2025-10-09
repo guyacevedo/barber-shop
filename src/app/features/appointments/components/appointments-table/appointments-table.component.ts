@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -20,7 +21,8 @@ type SortDirection = 'asc' | 'desc' | 'none';
   styleUrl: './appointments-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppointmentsTableComponent {
+export class AppointmentsTableComponent implements AfterContentInit {
+
   readonly authFacade = inject(AuthFacade);
   readonly appointmentFacade = inject(AppointmentFacade);
   readonly appointments = this.appointmentFacade.appointments;
@@ -83,6 +85,8 @@ export class AppointmentsTableComponent {
     const sorted = this.sortedAppointments();
     const startIndex = (this.currentPage() - 1) * this.itemsPerPage();
     const endIndex = startIndex + this.itemsPerPage();
+
+
     return sorted.slice(startIndex, endIndex);
   });
 
@@ -145,6 +149,11 @@ export class AppointmentsTableComponent {
     } finally {
       this.loading.set(false);
     }
+  }
+
+  ngAfterContentInit(): void {
+    this.sortConfig().direction = 'desc';
+    this.sortConfig().key = 'status';
   }
 
   // Sorting

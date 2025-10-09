@@ -1,5 +1,5 @@
 <div class="flex flex-wrap items-center justify-center mt-3
-gap-4 py-5 rounded shadow sm:max-h-86 sm:h-78 overflow-x-auto">
+gap-4 py-5 sm:max-h-86 sm:h-78 overflow-x-auto">
 
   @defer (when filteredSpecialists().length > 0) {
     @for (specialist of filteredSpecialists(); track specialist.id) {
@@ -15,7 +15,7 @@ gap-4 py-5 rounded shadow sm:max-h-86 sm:h-78 overflow-x-auto">
       }
     } @placeholder {
       <p class="text-start text-gray-500">
-        No se encontraron especialistas disponibles para esta especialidad. <br>
+        No se encontraron especialistas disponibles para esta servicio. <br>
         Intentá más tarde, o comunicate con nosotros vía teléfono o correo.
       </p>
     }

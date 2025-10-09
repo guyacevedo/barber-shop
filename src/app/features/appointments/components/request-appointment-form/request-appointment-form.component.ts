@@ -51,8 +51,8 @@ export class RequestAppointmentFormComponent {
   public steps: Step[] = [
     {
       number: 1,
-      title: 'Elegir Especialidad',
-      description: 'Seleccioná la atención que necesites.',
+      title: 'Elegir Servicio',
+      description: 'Seleccioná el servicio que necesites.',
     },
     {
       number: 2,
@@ -154,16 +154,18 @@ export class RequestAppointmentFormComponent {
             title: '¡Turno Confirmado!',
             message:
               'Tu turno fue agendado con éxito. Podés ver los detalles y gestionarlo en tu perfil.',
-            confirmText: 'Ir a Mi Perfil',
+            confirmText: 'Ver mis turnos',
             icon: 'check',
             iconColor: 'text-green-700',
-            iconBgColor: 'bg-green-primary',
+            iconBgColor: 'bg-green-300',
+            cancelText: 'Volver al inicio'
+            
           })
           .subscribe((result) => {
             if (result) {
-              this.router.navigate(['/dashboard/client']);
+              this.router.navigate(['/dashboard/appointments-list']);
             } else {
-              this.router.navigate(['/home']);
+              this.router.navigate(['/dashboard/client']);
             }
           });
         }, 150);
@@ -179,8 +181,8 @@ export class RequestAppointmentFormComponent {
             'Hubo un problema con la solicitud del turno. Intentá más tarde.',
           confirmText: 'Volver al Perfil',
           icon: 'error',
-          iconColor: 'text-red-secondary',
-          iconBgColor: 'bg-red-primary',
+          iconColor: 'text-red-700',
+          iconBgColor: 'bg-red-100',
         })
         .subscribe((result) => {
           if (result) {
