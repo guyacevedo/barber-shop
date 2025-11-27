@@ -4,7 +4,7 @@
     <!-- Hamburger Menu (Mobile) -->
     <div class="lg:hidden pl-2">
       <button (click)="toggleMenu()" tabindex="0" class="cursor-pointer z-50 mr-2 relative rounded-xl
-        hover:bg-bs-primary shadow active:bg-bs-primary text-bs-primary hover:text-white 
+        hover:bg-bs-primary shadow active:bg-bs-primary text-bs-primary hover:text-white
         transition-colors duration-300 p-2 outline outline-bs-primary" aria-label="Abrir menú"
         [attr.aria-expanded]="isMenuOpen()" aria-controls="mobile-menu-panel">
         @if (!isMenuOpen()) {
@@ -27,8 +27,7 @@
         item.title){
         <li class="w-full">
           <a (click)="toggleMenu()" class="flex w-full items-center justify-start p-4 text-md text-left font-medium rounded-lg
-            hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500
-             {{item.href === router.url ? 'bg-bs-primary/20 shadow text-bs-primary ': ''}}"
+            hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500"
             [routerLink]="item.href" [attr.tabindex]="isMenuOpen() ? 0 : -1" [attr.aria-label]="item.ariaLabel">
             {{ item.title }}
           </a>
@@ -100,9 +99,8 @@
       @for (item of this.authFacade.user()!.role === 'client' ? navItemsClient : navItemsSpecialist ; track item.title)
       {
       <li>
-        <a class="flex items-center justify-center p-1.5 xl:p-2 mr-2 xl:mr-4 rounded-lg text-md 
-          hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500
-          {{item.href === router.url ? 'bg-bs-primary/20 shadow text-bs-primary ': ''}}" [routerLink]="item.href"
+        <a class="flex items-center justify-center p-1.5 xl:p-2 mr-2 xl:mr-4 rounded-lg text-md
+          hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500" [routerLink]="item.href"
           tabindex="0" [attr.aria-label]="item.ariaLabel">
           {{ item.title}}
         </a>

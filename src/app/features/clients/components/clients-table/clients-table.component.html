@@ -59,7 +59,7 @@
     <!-- Table Body -->
     <div class="min-h-[390px]">
       @for (client of displayedClients(); track client.id) {
-      <div class="grid grid-cols-1 lg:grid-cols-5 not-lg:gap-2 items-center pt-3.5 lg:py-3.5 px-0 
+      <div class="grid grid-cols-1 lg:grid-cols-5 not-lg:gap-2 items-center pt-3.5 lg:py-3.5 px-0
           border lg:border-b border-gray-200 hover:bg-gray-50 transition not-lg:mb-4 not-lg:rounded-2xl overflow-hidden">
 
         <div class="text-left px-4">
@@ -85,7 +85,7 @@
         <div class="text-center lg:text-left border-t border-t-lightblue-secondary lg:border-none not-lg:py-4 not-lg:bg-lightblue-primary">
           <a [routerLink]="['/dashboard/user-record', client.id]"
             class="text-bs-third hover:underline inline-flex gap-1">
-            Ver Historia Clínica
+            Ver Historial
             <app-svg-icon icon="link"></app-svg-icon>
           </a>
         </div>
