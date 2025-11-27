@@ -28,7 +28,7 @@ export class RecommendationsComponent implements OnInit, OnDestroy {
   recommendations: Recommendation[] = [
     {
       quote:
-        'Más del <strong>95% de los clientes</strong> que estuvieron en la Barbería barber Shop durante 2025 están <strong>muy satisfechos</strong> con la experiencia.',
+        'Más del <strong>95% de los clientes</strong> que estuvieron en la Barbería barberApp durante 2025 están <strong>muy satisfechos</strong> con la experiencia.',
       author: 'Carlos Guzmán',
       rol: 'Cliente',
       qualification: 4

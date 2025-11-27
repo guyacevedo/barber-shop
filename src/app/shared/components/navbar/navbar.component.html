@@ -2,7 +2,7 @@
   <!-- Hamburger Menu (Mobile) -->
   <div class="lg:hidden">
     <button (click)="toggleMenu()" tabindex="0" class="cursor-pointer z-50 mr-2 relative rounded-xl
-          hover:bg-bs-primary shadow active:bg-bs-primary text-bs-primary hover:text-white 
+          hover:bg-bs-primary shadow active:bg-bs-primary text-bs-primary hover:text-white
         transition-colors duration-300 p-2 outline outline-bs-primary" aria-label="Abrir menú"
       [attr.aria-expanded]="isMenuOpen()" aria-controls="mobile-menu-panel">
       @if (!isMenuOpen()) {
@@ -74,7 +74,7 @@
 
     <div class=" mb-32 ml-8 flex flex-col justify-center items-start gap-2">
       <span class="text-sm text-black/60">
-        © 2025 Barber Shop™
+        © 2025 BarberApp™
       </span>
       <a [href]="github" [attr.tabindex]="isMenuOpen() ? 0 : -1"
         class="text-sm text-black/60 text-pretty hover:underline cursor-pointe" rel="noopener noreferrer nofollow">
@@ -96,7 +96,7 @@
   <ul class="hidden lg:flex justify-center items-center h-full mr-2 ml-2">
     @for (item of navItems; track item.title) {
     <li>
-      <a class="flex items-center justify-center p-1.5 xl:p-2 mr-2 xl:mr-4 rounded-lg text-md 
+      <a class="flex items-center justify-center p-1.5 xl:p-2 mr-2 xl:mr-4 rounded-lg text-md
           hover:bg-bs-primary/20 hover:shadow hover:text-bs-primary transition-colors duration-500
           {{item.href === router.url ? 'bg-bs-primary/20 shadow text-bs-primary ': ''}}" [routerLink]="item.href"
         tabindex="0" [attr.aria-label]="item.ariaLabel">
@@ -109,7 +109,7 @@
 
   <div class="2xl:ml-18 ml-4 flex justify-between  gap-2 items-center">
     <!-- Portal Link -->
-    <a routerLink="/auth/login" aria-label="Acceso al Portal" class="flex flex-row  justify-center items-center py-2 px-4 gap-2  font-bold bg-bs-primary text-white rounded-lg hover:opacity-90 hover:shadow transition-colors duration-500 
+    <a routerLink="/auth/login" aria-label="Acceso al Portal" class="flex flex-row  justify-center items-center py-2 px-4 gap-2  font-bold bg-bs-primary text-white rounded-lg hover:opacity-90 hover:shadow transition-colors duration-500
         {{router.url === '/auth/login'? 'hidden': ''}}">
       <app-svg-icon icon="login" size="28px" class="text-white"></app-svg-icon>
       <span class="text-sm text-white not-xl:hidden">Acceder</span>
