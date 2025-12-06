@@ -1,0 +1,56 @@
+<div class="inter-font special-glow flex flex-col flex-wrap justify-between items-center
+  xl:p-4 p-6 w-full min-h-48 rounded-4xl relative overflow-hidden gap-4
+  backdrop-blur-xl shadow-md outline outline-bs-primary/50 bg-gradient-to-br from-black to-150% to-bs-primary">
+
+  <!-- Title and Description -->
+  <div class="flex justify-center items-center gap-4 ">
+    <app-svg-icon icon="login" size="64px" class="text-cyan-400"></app-svg-icon>
+    <div class="text-center bg-gradient-to-br from-bs-primary to-70% to-cyan-400
+      to bg-clip-text text-transparent h-full">
+      <h2 class="text-3xl mr-16 font-bold tracking-tight">Ingresos Rápidos </h2>
+      <p class="text-left">
+        Para agilizar la prueba del sitio, usá nuestros usuarios por defecto, en
+        un clic.
+      </p>
+    </div>
+  </div>
+
+
+
+    <hr class="w-full h-0 text-bs-primary/50">
+
+    <!-- User Buttons -->
+    <div
+      class="user-buttons-container flex flex-wrap xl:flex-nowrap xl:justify-start justify-center xl:ml-6 mx-4 gap-4 xl:max-w-1/2">
+      @if (showUsers() && !authFacade.isAuthenticated()) {
+      @for (user of users(); track user.id) {
+      <button (click)="fastLogin(user)" [disabled]="authFacade.isLoading()" class="cursor-pointer flex flex-wrap justify-center items-center
+        rounded-2xl h-full px-2 py-4 min-w-30
+      bg-black/20 not-disabled:hover:bg-bs-primary/30 transition duration-300
+        not-disabled:active:bg-gray-700 not-disabled:hover:scale-105 not-disabled:active:scale-100
+        disabled:cursor-default disabled:bg-white/10">
+        <div class="flex flex-col justify-center items-center
+        bg-gradient-to-br from-blue-600 to-60% to-cyan-200
+        to bg-clip-text text-transparent">
+          <div class="outline outline-blue-400/50 rounded-full overflow-hidden img-fade-container bg-bs-primary">
+            @defer (when getProfilePictureUrl(user)) {
+            <img [src]="getProfilePictureUrl(user)" alt="Foto de perfil"
+              class="size-16 rounded-full object-cover img-fade-in">
+            }
+          </div>
+          <span class="mt-1 font-medium text-lg">{{ user.firstName }}</span>
+          <span class="text-sm font-medium">{{ user.role === 'client' ? 'Cliente' : 'Especialista' }}</span>
+        </div>
+      </button>
+      }
+      } @else {
+      @for (i of [0,1]; track i) {
+      <div class="flex flex-col items-center rounded-4xl h-full px-5 py-4 bg-black/20">
+        <div class="rounded-full bg-gray-900 w-16 h-16 mt-2 mb-2 animate-pulse"></div>
+        <div class="h-4 w-20 bg-gray-900 rounded mb-1"></div>
+        <div class="h-3 w-16 bg-gray-900 rounded"></div>
+      </div>
+      }
+      }
+    </div>
+  </div>
